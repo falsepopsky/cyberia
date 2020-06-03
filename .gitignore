@@ -1,0 +1,6 @@
+backend/node_modules
+backend/sessions
+
+frontend/node_modules
+
+CyberiaReactApp.code-workspace

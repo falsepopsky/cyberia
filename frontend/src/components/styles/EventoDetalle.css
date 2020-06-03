@@ -1,0 +1,33 @@
+#nombre-evento-detalle {
+  color: #008cba;
+  font-family: "Roboto", sans-serif;
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
+#detalles-evento-detalle {
+  font-family: "Roboto", sans-serif;
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
+#imdetl-evento-detalle p {
+  font-family: "Roboto", sans-serif;
+}
+
+#lineup-evento-detalle {
+  font-family: "Roboto", sans-serif;
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
+#lineup-evento-detalle p {
+  font-family: "Roboto", sans-serif;
+  font-weight: bold;
+}
+
+#descripcion-evento-detalle {
+  font-family: "Roboto", sans-serif;
+  font-weight: bold;
+  text-transform: uppercase;
+}

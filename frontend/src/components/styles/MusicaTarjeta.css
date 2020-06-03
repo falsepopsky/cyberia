@@ -1,0 +1,33 @@
+#musica-tarjeta {
+  background-color: #f1f1f1;
+  border: 0px;
+  box-shadow: 3px 6px 10px 0px #000;
+}
+
+#musica-tarjeta .card-body {
+  padding: 0px;
+}
+
+#footer-musica-tarjeta {
+  background-color: #f1f1f1;
+  border: 0px;
+}
+
+#musica-tarjeta #footer-musica-tarjeta #nombre-artista-tarjeta {
+  color: #000;
+  font-family: "Roboto", sans-serif;
+  letter-spacing: 0.159em;
+  font-weight: bold;
+  font-size: 1em;
+  text-align: initial;
+  text-transform: uppercase;
+}
+
+#musica-tarjeta #footer-musica-tarjeta #nombre-album-tarjeta {
+  color: #000;
+  font-family: "Roboto", sans-serif;
+  letter-spacing: 0.087em;
+  font-size: 0.8em;
+  text-align: initial;
+  text-transform: uppercase;
+}

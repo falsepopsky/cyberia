@@ -1,0 +1,25 @@
+#evento-tarjeta {
+  background-color: #f1f1f1;
+  border-radius: 0.5rem;
+  box-shadow: 6px 6px 10px 0px #000000e3;
+}
+
+#name-day {
+  font-family: "Roboto", sans-serif;
+  font-weight: bold;
+  color: #000;
+  font-size: 1.4em;
+  margin-bottom: 0.2em;
+}
+#day-month {
+  color: rgb(12, 53, 114);
+  font-family: "Roboto", sans-serif;
+  font-weight: bold;
+  font-size: 1em;
+  font-weight: bold;
+}
+
+#imagen-evento {
+  max-width: 300px;
+  max-height: 419px;
+}
