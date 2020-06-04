@@ -16,6 +16,42 @@ router.get("/", (req, res) => {
   );
 });
 
+// Formateado para la tarjeta Música
+
+router.get("/tarjetamusica", (req, res) => {
+  conexion.query(
+    `SELECT pm_id as id, artistas_nombre as nombreArtista, pm_nombre_album as nombreAlbum, pm_cover as cover 
+    FROM producto_musica
+    INNER JOIN 
+    artistas ON pm_nombre_artista = artistas_id`,
+    function (err, result, fields) {
+      if (err) throw err;
+
+      res.json(result);
+    }
+  );
+});
+
+// Formateado para la publicación Música
+
+router.get("/publicacionmusica/:id", (req, res) => {
+  let sql = `SELECT pm_id AS id, artistas_nombre AS nombreArtista, pm_nombre_album AS nombreAlbum, pm_cover as cover, pm_catalogo AS catalog, pm_fecha_lanzamiento AS fechaLanzamiento, series_nombre AS series, gnr_nombre AS genero, fa_nombre AS audio, pm_precio AS precio, pm_descripcion AS descripcion, pm_tracklist AS tracklist
+  FROM producto_musica
+  INNER JOIN 
+  artistas ON  pm_nombre_artista = artistas_id
+  INNER JOIN
+  series ON pm_series = series_id
+  INNER JOIN
+  generos_musicales ON gnr_id = pm_genero
+  INNER JOIN
+  formatos_audio ON fa_id = pm_audio
+  WHERE pm_id = ${req.params.id}`;
+  conexion.query(sql, function (err, result, fields) {
+    if (err) throw err;
+    res.json(result[0]);
+  });
+});
+
 // Trae la última publicación de Layer
 
 router.get("/layer", (req, res) => {

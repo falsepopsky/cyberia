@@ -18,6 +18,7 @@ const ListadoMusica = () => {
       {publicaciones.map((publicacion) => {
         return (
           <MusicaTarjeta
+            key={publicacion.id}
             id={publicacion.id}
             cover={publicacion.cover}
             nombreArtista={publicacion.nombreArtista}

@@ -57,7 +57,7 @@ const SignUpModal = (props) => {
   return (
     <Modal show={props.show} onHide={props.handleHide}>
       <Modal.Header closeButton>
-        <Modal.Title>Register</Modal.Title>
+        <Modal.Title>Create Account</Modal.Title>
       </Modal.Header>
 
       <Modal.Body>

@@ -49,9 +49,14 @@
   background-color: #fff;
   border: 3px solid;
   border-color: #fffefe;
+  border-radius: 0.25rem;
   padding-top: 0px;
   padding-bottom: 0px;
   margin: 1px 1em 1px 1em;
+}
+
+#btn-logged-user::after {
+  content: none;
 }
 
 #btn-logged-user:hover {

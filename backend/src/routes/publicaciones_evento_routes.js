@@ -24,11 +24,9 @@ router.get("/thisweek", (req, res) => {
   });
 });
 
-router.get("/:id", (req, res) => {
-  sql = `SELECT evento_id AS id, evento_nombre AS tituloEvento, evento_banner AS bannerEvento, evento_fecha AS fecha, evento_apertura AS horarioApertura, evento_cierre AS horarioCierre, evento_precio_puerta AS precioPuerta, evento_precio_advance AS precioAdvance, GROUP_CONCAT(DISTINCT gnr_nombre) AS generos, evento_lineup AS lineUp, evento_descripcion AS descripcion
-  FROM eventos 
-  INNER JOIN eve_genero ON evento_id = eg_evento_id 
-  INNER JOIN generos_musicales ON eg_gnr_id = gnr_id
+router.get("/detail/:id", (req, res) => {
+  sql = `SELECT evento_id AS id, evento_nombre AS tituloEvento, evento_banner AS bannerEvento, evento_fecha AS fecha, evento_apertura AS horarioApertura, evento_cierre AS horarioCierre, evento_precio_puerta AS precioPuerta, evento_precio_advance AS precioAdvance, evento_genero AS generos, evento_lineup AS lineUp, evento_descripcion AS descripcion
+  FROM eventos
   WHERE evento_id = ${req.params.id}`;
 
   conexion.query(sql, function (err, result, fields) {
@@ -38,7 +36,7 @@ router.get("/:id", (req, res) => {
 });
 
 router.post("/", (req, res) => {
-  let sql = `INSERT INTO eventos (evento_nombre, evento_banner, evento_lineup, evento_descripcion, evento_apertura, evento_cierre, evento_precio_puerta, evento_precio_advance, evento_stock_tickets, evento_fecha)
+  let sql = `INSERT INTO eventos (evento_nombre, evento_banner, evento_lineup, evento_descripcion, evento_apertura, evento_cierre, evento_precio_puerta, evento_precio_advance, evento_fecha)
   VALUES (?, ?, ? ,?, ?, ?, ?, ?, ?, ?, ?)`;
 
   let params = [
@@ -50,7 +48,6 @@ router.post("/", (req, res) => {
     req.query.cierre,
     req.query.precio_puerta,
     req.query.precio_advance,
-    req.query.stock_tickets,
     req.query.fecha,
   ];
 
@@ -82,7 +79,6 @@ router.put("/:id", (req, res) => {
                   evento_cierre = ?, 
                   evento_precio_puerta = ?, 
                   evento_precio_advance = ?,
-                  evento_stock_tickets = ?,
                   evento_fecha = ?
               WHERE evento_id = ?`;
   let params = [
@@ -95,7 +91,6 @@ router.put("/:id", (req, res) => {
     req.body.cierre,
     req.body.precio_puerta,
     req.body.precio_advance,
-    req.body.stock_tickets,
     req.body.fecha,
     req.params.id,
   ];

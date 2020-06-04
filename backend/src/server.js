@@ -25,9 +25,9 @@ const calendarioRoutes = require("./routes/calendario_eventos_routes");
 
 // publicaciones normales
 
-const eventosRoutes = require("./routes/publicaciones_eventos_routes");
+const eventosRoutes = require("./routes/publicaciones_evento_routes");
 const productosMusica = require("./routes/productos_musica_routes");
-const publicacionsMusica = require("./routes/publicaciones_musica_routes");
+const musicaRoutes = require("./routes/publicaciones_musica_routes");
 
 const app = express();
 
@@ -70,7 +70,7 @@ app.use("/artistas", artistasRoutes);
 app.use("/series", seriesRoutes);
 app.use("/formatosaudio", audiosRoutes);
 app.use("/generosmusicales", generosRoutes);
-app.use("/listamusicaroutes", publicacionsMusica);
+app.use("/listamusicaroutes", musicaRoutes);
 app.use("/calendario", calendarioRoutes);
 
 app.listen(8888, () => {

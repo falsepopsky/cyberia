@@ -16,7 +16,7 @@ export default () => {
   return (
     layer && (
       <Row>
-        <Col md={4} lg={5}>
+        <Col md={{ span: 4, offset: 1 }} lg={{ span: 5, offset: 1 }}>
           <img
             src={layer.cover}
             alt="cover-album"
@@ -24,8 +24,8 @@ export default () => {
           ></img>
         </Col>
         <Col
-          md={8}
-          lg={7}
+          md={{ span: 6, offset: 1 }}
+          lg={{ span: 4, offset: 1 }}
           className="mt-4 text-center align-items-stretch justify-content-center"
         >
           <h3 className="mt-4">{layer.nombreAlbum}</h3>

@@ -21,7 +21,7 @@ export default () => {
   let [evento, setEvento] = useState(null);
 
   useEffect(() => {
-    fetch("http://localhost:8888/eventos/" + id)
+    fetch("http://localhost:8888/eventos/detail/" + id)
       .then((response) => response.json())
       .then((data) => {
         setEvento(data);

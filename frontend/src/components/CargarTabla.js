@@ -35,7 +35,7 @@ const ListadoTabla = (props) => {
   };
 
   const cargarListadoProductos = () => {
-    let endpoint = "productosmusica";
+    let endpoint = "listamusicaroutes/tarjetamusica";
     fetch(`http://localhost:8888/${endpoint}`)
       .then((response) => response.json())
       .then((data) => {
@@ -73,6 +73,7 @@ const ListadoTabla = (props) => {
               {publicaciones.map((publicacion) => {
                 return (
                   <MusicaTabla
+                    key={publicacion.id}
                     id={publicacion.id}
                     cover={publicacion.cover}
                     nombreArtista={publicacion.nombreArtista}

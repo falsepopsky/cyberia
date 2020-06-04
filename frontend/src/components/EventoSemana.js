@@ -19,6 +19,7 @@ const ListadoEvento = () => {
       {eventos.map((evento) => {
         return (
           <EventoTarjeta
+            key={evento.id}
             id={evento.id}
             nombreDia={moment(evento.nombreDia).format("dddd")}
             diaMes={moment(evento.diaMes).format("MMM Do")}
