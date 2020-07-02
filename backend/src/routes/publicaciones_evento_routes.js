@@ -114,26 +114,21 @@ router.put("/:id", (req, res) => {
 });
 
 router.delete("/:id", (req, res) => {
-  conexion.query(
-    "DELETE FROM eventos WHERE evento_id =" + req.params.id,
-    function (err, result, fields) {
-      let respuesta;
-
-      if (err) {
-        respuesta = {
-          status: "error",
-          message: "Error al borrar el evento",
-        };
-      } else {
-        respuesta = {
-          status: "ok",
-          message: "El evento se ha borrado con exito",
-        };
-      }
-
-      res.json(respuesta);
+  sqlDelete = `DELETE FROM eventos WHERE evento_id = ?`;
+  values = [req.params.id];
+  conexion.query(sqlDelete, values, function (err, result, fields) {
+    if (err) {
+      res.json({
+        status: "error",
+        message: "Error al eliminar el evento",
+      });
+    } else {
+      res.json({
+        status: "ok",
+        message: "El Evento ha sido eliminado correctamente",
+      });
     }
-  );
+  });
 });
 
 module.exports = router;

@@ -26,21 +26,16 @@ export default () => {
       .then((data) => {
         setEvento(data);
       });
-  }, []);
+  }, [id]);
   return (
     evento && (
       <>
-        <Row>
-          <Col className="mt-4 text-center align-items-stretch justify-content-center">
-            <h3 id="nombre-evento-detalle">{evento.tituloEvento}</h3>
-          </Col>
-        </Row>
-        <Row id="imdetl-evento-detalle">
+        <Row id="contenedor-uno-event">
           <Col
-            sm={6}
-            md={6}
-            lg={4}
-            className="mt-4 text-center align-items-stretch justify-content-center"
+            sm={{ span: 4, offset: 1 }}
+            md={{ span: 4, offset: 1 }}
+            lg={{ span: 4, offset: 1 }}
+            className="mt-5 text-center align-items-stretch justify-content-center"
           >
             <img
               style={{ maxWidth: "300px", maxHeight: "420px" }}
@@ -50,55 +45,77 @@ export default () => {
             />
           </Col>
           <Col
-            sm={6}
-            md={6}
-            lg={4}
-            className="mt-4 text-center align-items-stretch justify-content-center"
+            sm={{ span: 6, offset: 2 }}
+            md={{ span: 4, offset: 1 }}
+            lg={{ span: 4, offset: 1 }}
+            className="mt-5 text-center align-items-stretch justify-content-center"
           >
-            <h3 id="detalles-evento-detalle">Details</h3>
-            <p style={{ marginTop: "2em" }}>
-              Date <FontAwesomeIcon color="black" icon={faCalendarAlt} />
+            <h3 id="name-event">{evento.tituloEvento}</h3>
+            <p id="date-event">
+              <FontAwesomeIcon
+                color="black"
+                icon={faCalendarAlt}
+                transform="left-4"
+              />
               {moment(evento.fecha).format("MMM Do")}
             </p>
-            <p>
-              Open <FontAwesomeIcon color="black" icon={faHourglassStart} />
+            <p id="open-event">
+              <FontAwesomeIcon
+                color="black"
+                icon={faHourglassStart}
+                transform="left-4"
+              />
               {evento.horarioApertura} hs
             </p>
-            <p>
-              Close <FontAwesomeIcon color="black" icon={faHourglassEnd} />
+            <p id="close-event">
+              <FontAwesomeIcon
+                color="black"
+                icon={faHourglassEnd}
+                transform="left-4"
+              />
               {evento.horarioCierre} hs
             </p>
-            <p>
-              Door <FontAwesomeIcon color="black" icon={faDoorOpen} />
+            <br></br>
+            <p id="price-door">
+              <FontAwesomeIcon
+                color="black"
+                icon={faDoorOpen}
+                transform="left-4"
+              />
               {evento.precioPuerta}
             </p>
-            <p>
-              Advance <FontAwesomeIcon color="black" icon={faHandHoldingUsd} />
+            <p id="advance-door">
+              <FontAwesomeIcon
+                color="black"
+                icon={faHandHoldingUsd}
+                transform="left-4"
+              />
               {evento.precioAdvance}
             </p>
-            <p>
-              Styles <FontAwesomeIcon color="black" icon={faMusic} />
+            <p id="genres-event">
+              <FontAwesomeIcon
+                color="black"
+                icon={faMusic}
+                transform="left-4"
+              />
               {evento.generos}
             </p>
-            <Button variant="info">
+            <br></br>
+            <Button id="buy-evento" variant="info">
               Buy <FontAwesomeIcon color="white" icon={faCartPlus} />
             </Button>
-          </Col>
-          <Col
-            sm={12}
-            md={12}
-            lg={4}
-            className="mt-4 text-center align-items-stretch justify-content-center"
-          >
-            <h2 id="lineup-evento-detalle">Line Up</h2>
-            <p style={{ marginTop: "2em" }}>{evento.lineUp}</p>
+            <p id="description-event">{evento.descripcion}</p>
           </Col>
         </Row>
-
-        <Row>
-          <Col className="mt-4 text-center align-items-stretch justify-content-center">
-            <h2 id="descripcion-evento-detalle">Description</h2>
-            <p style={{ marginTop: "2em" }}>{evento.descripcion}</p>
+        <Row id="contenedor-dos-event">
+          <Col
+            sm={{ span: 6, offset: 3 }}
+            md={{ span: 6, offset: 3 }}
+            lg={{ span: 6, offset: 3 }}
+            className="mt-4 text-center align-items-stretch justify-content-center"
+          >
+            <h2 id="lineup-titulo-event">Line Up</h2>
+            <p id="lineup-contenido-event">{evento.lineUp}</p>
           </Col>
         </Row>
       </>

@@ -19,15 +19,12 @@ const audiosRoutes = require("./routes/categoria_audios_routes");
 const seriesRoutes = require("./routes/categoria_series_routes");
 const generosRoutes = require("./routes/categoria_generos_routes");
 
-// publicaciones de rutas especiales
-
-const calendarioRoutes = require("./routes/calendario_eventos_routes");
-
 // publicaciones normales
 
 const eventosRoutes = require("./routes/publicaciones_evento_routes");
-const productosMusica = require("./routes/productos_musica_routes");
 const musicaRoutes = require("./routes/publicaciones_musica_routes");
+
+// Iniciacion
 
 const app = express();
 
@@ -40,6 +37,8 @@ app.use(fileUpload());
 const session = require("express-session");
 const FileStore = require("session-file-store")(session);
 const auth = require("./auth");
+
+// static files
 
 app.use(express.static("public"));
 
@@ -65,13 +64,12 @@ app.use(
 
 app.use("/auth", sessionRoutes);
 app.use("/eventos", eventosRoutes);
-app.use("/productosmusica", productosMusica);
 app.use("/artistas", artistasRoutes);
 app.use("/series", seriesRoutes);
 app.use("/formatosaudio", audiosRoutes);
 app.use("/generosmusicales", generosRoutes);
-app.use("/listamusicaroutes", musicaRoutes);
-app.use("/calendario", calendarioRoutes);
+app.use("/musica", musicaRoutes);
+app.use(require("./routes/calendario.eventos.routes"));
 
 app.listen(8888, () => {
   console.log("Escuchando...");

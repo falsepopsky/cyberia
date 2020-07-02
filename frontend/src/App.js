@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import "./App.css";
 import Container from "react-bootstrap/Container";
 import NavigationBar from "./components/NavigationBar";
-import HomePage from "./components/HomePage";
+import HomePage from "./pages/HomePage";
 import Footer from "./components/Footer";
 import StorePage from "./components/StorePage";
 import EventoPage from "./components/EventoPage";
@@ -20,9 +20,13 @@ import {
 
 function App() {
   const [usuario, setUsuario] = useState(null);
+  const [admin, setAdmin] = useState(false);
 
   const onLoginSuccess = (loggedUser) => {
     setUsuario(loggedUser);
+    if (loggedUser.nombre === "admin") {
+      setAdmin(true);
+    }
   };
 
   const onLogout = () => {
@@ -40,6 +44,7 @@ function App() {
             icon: "success",
           });
           setUsuario(null);
+          setAdmin(false);
         } else {
           Swal.fire({
             title: "Error!",
@@ -56,6 +61,7 @@ function App() {
         user={usuario}
         handleLoginSuccess={onLoginSuccess}
         handleLogout={onLogout}
+        admin={admin}
       />
       <Container fluid>
         <Switch>

@@ -23,17 +23,17 @@ export default () => {
   let [publicacion, setPublicacion] = useState(null);
 
   useEffect(() => {
-    fetch("http://localhost:8888/listamusicaroutes/publicacionmusica/" + id)
+    fetch("http://localhost:8888/musica/publicacionmusica/" + id)
       .then((response) => response.json())
       .then((data) => {
         setPublicacion(data);
       });
-  }, []);
+  }, [id]);
 
   return (
     publicacion && (
       <>
-        <Row>
+        <Row id="contenedor-uno-detail-music">
           <Col
             sm={6}
             md={6}
@@ -117,7 +117,7 @@ export default () => {
             <p id="description-content">{publicacion.descripcion}</p>
           </Col>
         </Row>
-        <Row>
+        <Row id="contenedor-dos-detail-music">
           <Col
             sm={{ span: 6, offset: 3 }}
             md={{ span: 6, offset: 3 }}

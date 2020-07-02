@@ -5,11 +5,7 @@ import "./styles/EventoTarjeta.css";
 import { Link } from "react-router-dom";
 
 export default (props) => (
-  <Col
-    md={4}
-    sm={4}
-    className="mb-4 text-center d-flex align-items-stretch justify-content-center"
-  >
+  <Col className="mb-4 text-center d-flex align-items-stretch justify-content-center">
     <Card id="evento-tarjeta">
       <Card.Body>
         <Link to={"/eventsdetalle/" + props.id}>

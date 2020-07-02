@@ -9,6 +9,10 @@ export default (props) => {
     props.onEditClick(props.id);
   };
 
+  const handleDeleteClick = () => {
+    props.onDeleteClick(props.id);
+  };
+
   return (
     <tr>
       <td>{props.id}</td>
@@ -21,7 +25,7 @@ export default (props) => {
         </Button>
       </td>
       <td>
-        <Button variant="danger">
+        <Button variant="danger" onClick={handleDeleteClick}>
           <FontAwesomeIcon color="white" icon={faTrash} />
         </Button>
       </td>

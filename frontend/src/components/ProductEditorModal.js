@@ -162,7 +162,7 @@ const ProductEditorModal = (props) => {
     formData.append("audioCategory", audioCategory);
     formData.append("generoCategory", generoCategory);
 
-    let url = "http://localhost:8888/listamusicaroutes";
+    let url = "http://localhost:8888/musica";
 
     let method = "POST";
 
@@ -194,7 +194,7 @@ const ProductEditorModal = (props) => {
 
   useEffect(() => {
     if (props.idProducto) {
-      fetch("http://localhost:8888/listamusicaroutes/" + props.idProducto)
+      fetch("http://localhost:8888/musica/" + props.idProducto)
         .then((response) => response.json())
         .then((data) => {
           setArtistCategory(data.artistCategory);

@@ -6,7 +6,7 @@ const ListadoMusica = () => {
   const [publicaciones, setPublicaciones] = useState([]);
 
   useEffect(() => {
-    fetch("http://localhost:8888/listamusicaroutes/ultimascuatropublicaciones")
+    fetch("http://localhost:8888/musica/ultimascuatropublicaciones")
       .then((response) => response.json())
       .then((data) => {
         setPublicaciones(data);

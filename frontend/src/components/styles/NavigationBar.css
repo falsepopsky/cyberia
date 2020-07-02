@@ -12,6 +12,10 @@
   color: #aaa590;
 }
 
+#basic-navbar-nav {
+  text-align: center;
+}
+
 #btn-sign-up {
   font-family: "VarelaRound";
   color: #fff;
@@ -39,8 +43,8 @@
 }
 
 #btn-login:hover {
-  background-color: #fffebc;
-  border-color: #fffebc;
+  background-color: #ffccaa;
+  border-color: #ffccaa;
 }
 
 #btn-logged-user {

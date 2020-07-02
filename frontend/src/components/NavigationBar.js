@@ -40,6 +40,11 @@ const NavigationBar = (props) => {
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="ml-auto">
+            {props.admin === true ? (
+              <Link to="/panel" className="nav-link">
+                Admin Panel
+              </Link>
+            ) : null}
             <Link to="/events" className="nav-link">
               Events
             </Link>

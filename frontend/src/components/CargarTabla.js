@@ -35,7 +35,7 @@ const ListadoTabla = (props) => {
   };
 
   const cargarListadoProductos = () => {
-    let endpoint = "listamusicaroutes/tarjetamusica";
+    let endpoint = "musica/listamusicaroutes";
     fetch(`http://localhost:8888/${endpoint}`)
       .then((response) => response.json())
       .then((data) => {
@@ -48,6 +48,39 @@ const ListadoTabla = (props) => {
   const handleEditClick = (idProducto) => {
     setSelectedProduct(idProducto);
     setShowProductEditorModal(true);
+  };
+
+  const handleDeleteClick = (id) => {
+    Swal.fire({
+      title: "Confirma que desea eliminar la publicación?",
+      icon: "question",
+      showCancelButton: true,
+      confirmButtonText: "Aceptar",
+      cancelButtonText: "Cancelar",
+    }).then((result) => {
+      if (result.value) {
+        fetch(`http://localhost:8888/musica/${id}`, {
+          method: "DELETE",
+          credentials: "include",
+        })
+          .then((response) => response.json())
+          .then((data) => {
+            if (data.status === "ok") {
+              Swal.fire({
+                text: data.message,
+                icon: "success",
+              });
+
+              cargarListadoProductos();
+            } else {
+              Swal.fire({
+                text: data.message,
+                icon: "error",
+              });
+            }
+          });
+      }
+    });
   };
 
   return (
@@ -80,6 +113,7 @@ const ListadoTabla = (props) => {
                     nombreAlbum={publicacion.nombreAlbum}
                     type={props.type}
                     onEditClick={handleEditClick}
+                    onDeleteClick={handleDeleteClick}
                   />
                 );
               })}

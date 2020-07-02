@@ -1,3 +1,16 @@
+#contenedor-uno-detail-music {
+  background: rgb(149, 212, 203);
+  background: linear-gradient(
+    135deg,
+    rgba(149, 212, 203, 1) 0%,
+    rgba(213, 255, 249, 1) 45%
+  );
+}
+
+#contenedor-dos-detail-music {
+  background: #d5fff9;
+}
+
 #artist-name {
   font-family: "Montserrat";
   font-size: 2rem;
@@ -6,6 +19,7 @@
 }
 
 #album-name {
+  margin-top: 1em;
   font-family: "Montserrat";
   font-size: 1.2rem;
   display: block;

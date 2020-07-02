@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from "react";
-import Row from "react-bootstrap/Row";
 import EventoTarjeta from "./EventoTarjeta";
 import moment from "moment";
+import Carousel from "react-multi-carousel";
+import "react-multi-carousel/lib/styles.css";
 
 const ListadoEvento = () => {
   const [eventos, setEventos] = useState([]);
@@ -14,8 +15,27 @@ const ListadoEvento = () => {
       });
   }, []);
 
+  const responsive = {
+    superLargeDesktop: {
+      breakpoint: { max: 4000, min: 3000 },
+      items: 4,
+    },
+    desktop: {
+      breakpoint: { max: 3000, min: 1024 },
+      items: 3,
+    },
+    tablet: {
+      breakpoint: { max: 1024, min: 464 },
+      items: 2,
+    },
+    mobile: {
+      breakpoint: { max: 800, min: 0 },
+      items: 1,
+    },
+  };
+
   return (
-    <Row className="m-4">
+    <Carousel responsive={responsive}>
       {eventos.map((evento) => {
         return (
           <EventoTarjeta
@@ -27,7 +47,7 @@ const ListadoEvento = () => {
           />
         );
       })}
-    </Row>
+    </Carousel>
   );
 };
 
