@@ -1,8 +1,7 @@
-import React from "react";
-import Button from "react-bootstrap/Button";
-import { Link } from "react-router-dom";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faEdit, faTrash } from "@fortawesome/free-solid-svg-icons";
+import React from 'react';
+import Button from 'react-bootstrap/Button';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faEdit, faTrash } from '@fortawesome/free-solid-svg-icons';
 
 export default (props) => {
   const handleEditClick = () => {
@@ -14,11 +13,10 @@ export default (props) => {
   };
 
   return (
-    <tr>
+    <tr className="text-center align-content-center align-items-center justify-content-center">
       <td>{props.id}</td>
       <td>{props.nombreArtista}</td>
       <td>{props.nombreAlbum}</td>
-      <td>{props.cover}</td>
       <td>
         <Button variant="success" onClick={handleEditClick}>
           <FontAwesomeIcon color="white" icon={faEdit} />

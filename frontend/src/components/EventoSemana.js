@@ -1,14 +1,14 @@
-import React, { useState, useEffect } from "react";
-import EventoTarjeta from "./EventoTarjeta";
-import moment from "moment";
-import Carousel from "react-multi-carousel";
-import "react-multi-carousel/lib/styles.css";
+import React, { useState, useEffect } from 'react';
+import EventoTarjeta from './EventoTarjeta';
+import moment from 'moment';
+import Carousel from 'react-multi-carousel';
+import 'react-multi-carousel/lib/styles.css';
 
 const ListadoEvento = () => {
   const [eventos, setEventos] = useState([]);
 
   useEffect(() => {
-    fetch("http://localhost:8888/eventos/thisweek")
+    fetch('http://localhost:8888/eventos/thisweek')
       .then((response) => response.json())
       .then((data) => {
         setEventos(data);
@@ -35,14 +35,14 @@ const ListadoEvento = () => {
   };
 
   return (
-    <Carousel responsive={responsive}>
+    <Carousel responsive={responsive} draggable={true}>
       {eventos.map((evento) => {
         return (
           <EventoTarjeta
             key={evento.id}
             id={evento.id}
-            nombreDia={moment(evento.nombreDia).format("dddd")}
-            diaMes={moment(evento.diaMes).format("MMM Do")}
+            nombreDia={moment(evento.nombreDia).format('dddd')}
+            diaMes={moment(evento.diaMes).format('MMM Do')}
             bannerEvento={evento.bannerEvento}
           />
         );

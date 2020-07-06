@@ -3,12 +3,10 @@ const auth = function (req, res, next) {
     next();
   } else {
     res.status(401);
-    res.send(
-      {
-        status: 'error',
-        message: 'No posee los permisos necesarios para ingresar a esta sección'
-      }
-    )
+    res.send({
+      status: 'error',
+      message: 'No posee los permisos necesarios para ingresar a esta sección',
+    });
   }
 };
 

@@ -1,8 +1,8 @@
-import React from "react";
-import Col from "react-bootstrap/Col";
-import Card from "react-bootstrap/Card";
-import "./styles/MusicaTarjeta.css";
-import { Link } from "react-router-dom";
+import React from 'react';
+import Col from 'react-bootstrap/Col';
+import Card from 'react-bootstrap/Card';
+import './styles/MusicaTarjeta.css';
+import { Link } from 'react-router-dom';
 
 export default (props) => (
   <Col
@@ -17,12 +17,12 @@ export default (props) => (
           src={props.cover}
           className="card-img-top"
           alt="cover-music"
-        ></img>
+        />
       </Card.Body>
 
       <Card.Footer id="footer-musica-tarjeta">
-        <Link to={"/musicdetalle/" + props.id}>
-          <p id="nombre-artista-tarjeta">{props.nombreArtista}</p>
+        <p id="nombre-artista-tarjeta">{props.nombreArtista}</p>
+        <Link to={'/musicdetalle/' + props.id}>
           <p id="nombre-album-tarjeta">{props.nombreAlbum}</p>
         </Link>
       </Card.Footer>

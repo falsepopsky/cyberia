@@ -1,11 +1,11 @@
-import React, { useState, useEffect } from "react";
-import Row from "react-bootstrap/Row";
-import Col from "react-bootstrap/Col";
-import Table from "react-bootstrap/Table";
-import MusicaTabla from "./MusicaTabla";
-import NavBarMisPublicaciones from "./NavBarMisPublicaciones";
-import ProductEditorModal from "./ProductEditorModal";
-import Swal from "sweetalert2";
+import React, { useState, useEffect } from 'react';
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
+import Table from 'react-bootstrap/Table';
+import MusicaTabla from './MusicaTabla';
+import NavBarMisPublicaciones from './NavBarMisPublicaciones';
+import ProductEditorModal from './ProductEditorModal';
+import Swal from 'sweetalert2';
 
 const ListadoTabla = (props) => {
   const [publicaciones, setPublicaciones] = useState([]);
@@ -30,12 +30,12 @@ const ListadoTabla = (props) => {
 
     Swal.fire({
       text: message,
-      icon: "success",
+      icon: 'success',
     });
   };
 
   const cargarListadoProductos = () => {
-    let endpoint = "musica/listamusicaroutes";
+    let endpoint = 'musica/listamusicaroutes';
     fetch(`http://localhost:8888/${endpoint}`)
       .then((response) => response.json())
       .then((data) => {
@@ -52,30 +52,30 @@ const ListadoTabla = (props) => {
 
   const handleDeleteClick = (id) => {
     Swal.fire({
-      title: "Confirma que desea eliminar la publicación?",
-      icon: "question",
+      title: 'Confirma que desea eliminar la publicación?',
+      icon: 'question',
       showCancelButton: true,
-      confirmButtonText: "Aceptar",
-      cancelButtonText: "Cancelar",
+      confirmButtonText: 'Aceptar',
+      cancelButtonText: 'Cancelar',
     }).then((result) => {
       if (result.value) {
         fetch(`http://localhost:8888/musica/${id}`, {
-          method: "DELETE",
-          credentials: "include",
+          method: 'DELETE',
+          credentials: 'include',
         })
           .then((response) => response.json())
           .then((data) => {
-            if (data.status === "ok") {
+            if (data.status === 'ok') {
               Swal.fire({
                 text: data.message,
-                icon: "success",
+                icon: 'success',
               });
 
               cargarListadoProductos();
             } else {
               Swal.fire({
                 text: data.message,
-                icon: "error",
+                icon: 'error',
               });
             }
           });
@@ -93,11 +93,10 @@ const ListadoTabla = (props) => {
         <Col>
           <Table striped bordered hover>
             <thead className="mt-4">
-              <tr>
+              <tr className="text-center align-content-center align-items-center justify-content-center">
                 <th># ID</th>
                 <th>Nombre Artista</th>
                 <th>Nombre Album</th>
-                <th>Cover</th>
                 <th>Editar</th>
                 <th>Borrar</th>
               </tr>
@@ -108,7 +107,6 @@ const ListadoTabla = (props) => {
                   <MusicaTabla
                     key={publicacion.id}
                     id={publicacion.id}
-                    cover={publicacion.cover}
                     nombreArtista={publicacion.nombreArtista}
                     nombreAlbum={publicacion.nombreAlbum}
                     type={props.type}

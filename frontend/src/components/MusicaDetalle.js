@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from "react";
-import Row from "react-bootstrap/Row";
-import Col from "react-bootstrap/Col";
-import Button from "react-bootstrap/Button";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import React, { useState, useEffect } from 'react';
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
+import Button from 'react-bootstrap/Button';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
   faCalendarAlt,
   faHashtag,
@@ -12,10 +12,10 @@ import {
   faFileAudio,
   faHeart,
   faCartPlus,
-} from "@fortawesome/free-solid-svg-icons";
-import { useParams } from "react-router-dom";
-import moment from "moment";
-import "./styles/MusicaDetalle.css";
+} from '@fortawesome/free-solid-svg-icons';
+import { useParams } from 'react-router-dom';
+import moment from 'moment';
+import './styles/MusicaDetalle.css';
 
 export default () => {
   let { id } = useParams();
@@ -23,7 +23,7 @@ export default () => {
   let [publicacion, setPublicacion] = useState(null);
 
   useEffect(() => {
-    fetch("http://localhost:8888/musica/publicacionmusica/" + id)
+    fetch('http://localhost:8888/musica/publicacionmusica/' + id)
       .then((response) => response.json())
       .then((data) => {
         setPublicacion(data);
@@ -71,7 +71,7 @@ export default () => {
                 icon={faCalendarAlt}
                 transform="left-4"
               />
-              {moment(publicacion.fechaLanzamiento).format("MMM Do YYYY")}
+              {moment(publicacion.fechaLanzamiento).format('MMM Do YYYY')}
             </p>
             <p id="series">
               <FontAwesomeIcon
@@ -106,11 +106,11 @@ export default () => {
               {publicacion.precio} ARS
             </p>
             <br></br>
-            <Button style={{ margin: "1em" }} variant="info">
-              Wishlist <FontAwesomeIcon color="white" icon={faHeart} />
+            <Button style={{ margin: '1em' }} variant="info">
+              <FontAwesomeIcon color="white" icon={faHeart} /> Wishlist
             </Button>
-            <Button style={{ margin: "1em" }} variant="info">
-              Add to Cart <FontAwesomeIcon color="white" icon={faCartPlus} />
+            <Button style={{ margin: '1em' }} variant="info">
+              <FontAwesomeIcon color="white" icon={faCartPlus} /> Add to Cart
             </Button>
 
             <h2 id="description-title">DESCRIPTION</h2>

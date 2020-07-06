@@ -288,7 +288,11 @@ const ProductEditorModal = (props) => {
             <Col>
               <Form.Group className="d-flex justify-content-center">
                 {previewCover && (
-                  <img style={{ height: "25vh" }} src={previewCover} />
+                  <img
+                    style={{ height: "25vh" }}
+                    src={previewCover}
+                    alt="cover-album"
+                  />
                 )}
               </Form.Group>
               <Form.Group>

@@ -1,13 +1,12 @@
-import React from "react";
-import { Link } from "react-router-dom";
-import Row from "react-bootstrap/Row";
-import Col from "react-bootstrap/Col";
-import imagenLogo from "../images/cyberia_logo.png";
-import Button from "react-bootstrap/Button";
-import "../components/styles/HomePage.css";
-import EventoSemana from "../components/EventoSemana";
-import MusicaProductHomePage from "../components/MusicaProductHomePage";
-import ListaMusicaUltimosCuatro from "../components/ListaMusicaUltimosCuatro";
+import React from 'react';
+import { Link } from 'react-router-dom';
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
+import imagenLogo from '../images/cyberia_logo.png';
+import '../components/styles/HomePage.css';
+import EventoSemana from '../components/EventoSemana';
+import MusicaProductHomePage from '../components/MusicaProductHomePage';
+import ListaMusicaUltimosCuatro from '../components/ListaMusicaUltimosCuatro';
 
 const HomePage = () => {
   return (
@@ -15,7 +14,12 @@ const HomePage = () => {
       <Row id="dottedbox" className="text-center">
         <Col id="overlay">
           <img
-            style={{ marginTop: "2em", marginBottom: "4em", width: "30%" }}
+            style={{
+              marginTop: '2em',
+              marginBottom: '4em',
+              width: '30%',
+              pointerEvents: 'none',
+            }}
             src={imagenLogo}
             alt="logo-banner"
           />
@@ -28,9 +32,14 @@ const HomePage = () => {
             that go to clubs. If you want to know more, check out about section
             below.
           </p>
-          <Button id="about" variant="light" size="lg">
+          <Link
+            to="/about"
+            id="btn-about"
+            className="nav-link btn btn-light btn-sm d-inline-block"
+            rel="noopener noreferrer"
+          >
             ABOUT
-          </Button>
+          </Link>
         </Col>
       </Row>
       <Row className="text-center">
@@ -41,7 +50,7 @@ const HomePage = () => {
       </Row>
 
       <Row className="text-center">
-        <Col style={{ backgroundColor: "#cecece" }}>
+        <Col style={{ backgroundColor: '#cecece' }}>
           <h2 id="store-section-title">STORE</h2>
           <MusicaProductHomePage />
           <h3 id="store-section-subtitle">
@@ -52,6 +61,7 @@ const HomePage = () => {
             to="/store"
             id="btn-to-store"
             className="nav-link btn btn-dark btn-sm d-inline-block"
+            rel="noopener noreferrer"
           >
             MORE PRODUCTS
           </Link>

@@ -1,17 +1,15 @@
-import React, { useState } from "react";
-import { Link, useHistory } from "react-router-dom";
-import Navbar from "react-bootstrap/Navbar";
-import Nav from "react-bootstrap/Nav";
-import NavDropdown from "react-bootstrap/NavDropdown";
-import Button from "react-bootstrap/Button";
-import LoginModal from "./LoginModal";
-import SignUpModal from "./SignUpModal";
-import Logo from "../images/icon_192_ancho.png";
-import "./styles/NavigationBar.css";
+import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
+import Navbar from 'react-bootstrap/Navbar';
+import Nav from 'react-bootstrap/Nav';
+import NavDropdown from 'react-bootstrap/NavDropdown';
+import Button from 'react-bootstrap/Button';
+import LoginModal from './LoginModal';
+import SignUpModal from './SignUpModal';
+import Logo from '../images/icon_192_ancho.png';
+import './styles/NavigationBar.css';
 
 const NavigationBar = (props) => {
-  const history = useHistory();
-
   const [showLoginModal, setShowLoginModal] = useState(false);
 
   const handleHideLoginModal = () => {
@@ -41,17 +39,23 @@ const NavigationBar = (props) => {
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="ml-auto">
             {props.admin === true ? (
-              <Link to="/panel" className="nav-link">
+              <Link
+                to="/adminPanel"
+                className="nav-link"
+                rel="noopener noreferrer"
+              >
                 Admin Panel
               </Link>
             ) : null}
-            <Link to="/events" className="nav-link">
+            <Link to="/events" className="nav-link" rel="noopener noreferrer">
               Events
             </Link>
-            <Link to="/store" className="nav-link">
+            <Link to="/store" className="nav-link" rel="noopener noreferrer">
               Store
             </Link>
-            <Nav.Link>About</Nav.Link>
+            <Link to="/about" className="nav-link" rel="noopener noreferrer">
+              About
+            </Link>
             {!props.user ? (
               <>
                 <Button id="btn-sign-up" onClick={handleShowSignUpModal}>

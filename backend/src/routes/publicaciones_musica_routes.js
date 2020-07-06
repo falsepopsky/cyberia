@@ -127,7 +127,7 @@ router.post("/", (req, res) => {
     let cover = req.files.cover;
 
     imageFileName = Date.now() + path.extname(cover.name);
-    cover.mv("../backend/public/images/" + imageFileName, function (err) {
+    cover.mv("./public/images/" + imageFileName, function (err) {
       if (err) {
         console.log(err);
       }
@@ -143,7 +143,7 @@ router.post("/", (req, res) => {
                     '${req.body.catalog}',
                     '${req.body.fechaLanzamiento}',
                     ${req.body.seriesCategory},
-                    '${process.env.IMAGES_URL + imageFileName}',
+                    'http://localhost:8888/images/${imageFileName}',
                     '${req.body.tracklist}',
                     '${req.body.descripcion}',
                     ${req.body.precio},
@@ -169,15 +169,15 @@ router.put("/:id", (req, res) => {
   let imageFileName = "";
 
   let sqlUpdate = `UPDATE producto_musica
-                      SET pm_nombre_artista = ?
-                          pm_nombre_album
-                          pm_catalogo = ? 
-                          pm_fecha_lanzamiento = ?
-                          pm_series = ?
-                          pm_tracklist = ?
-                          pm_descripcion = ?
-                          pm_precio = ?
-                          pm_audio = ?
+                      SET pm_nombre_artista = ?,
+                          pm_nombre_album = ?,
+                          pm_catalogo = ?,
+                          pm_fecha_lanzamiento = ?,
+                          pm_series = ?,
+                          pm_tracklist = ?,
+                          pm_descripcion = ?,
+                          pm_precio = ?,
+                          pm_audio = ?,
                           pm_genero = ?`;
 
   let values = [
@@ -193,16 +193,18 @@ router.put("/:id", (req, res) => {
     req.body.generoCategory,
   ];
 
+  // Si me mandan un archivo
+
   if (req.files) {
     //Borro el archivo de la imagen anterior
     conexion.query(
-      "SELECT pm_cover FROM producto_musica WHERE pm_id=" + req.params.id,
+      `SELECT pm_cover FROM producto_musica WHERE pm_id = ${req.params.id}`,
       function (err, result, fields) {
         if (err) {
           console.log("Error");
         } else {
           fs.unlink(
-            "../backend/public/images/" + path.basename(result[0].pm_cover),
+            "./public/images/" + path.basename(result[0].pm_cover),
             (err) => {
               if (err) throw err;
 
@@ -217,19 +219,20 @@ router.put("/:id", (req, res) => {
 
     imageFileName = Date.now() + path.extname(cover.name);
 
-    cover.mv("../backend/public/images/" + imageFilename, function (err) {
+    cover.mv("./public/images/" + imageFileName, function (err) {
       if (err) {
         console.log(err);
       }
     });
 
     sqlUpdate += ", pm_cover = ?";
-    values.push(process.env.IMAGES_URL + imageFileName);
+    values.push(`http://localhost:8888/images/${imageFileName}`);
   } else {
     console.log("No hay archivo");
   }
 
   sqlUpdate += " WHERE pm_id = ?";
+  console.log(sqlUpdate);
   values.push(req.params.id);
 
   conexion.query(sqlUpdate, values, function (err, result, fields) {
