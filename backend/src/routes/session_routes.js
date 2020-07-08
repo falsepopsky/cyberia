@@ -1,22 +1,24 @@
-const express = require("express");
+const express = require('express');
 const router = express.Router();
-const conexion = require("../connection");
+const conexion = require('../connection');
+const bcrypt = require('bcrypt');
+const saltRounds = 10;
 
-router.post("/", (req, res) => {
+router.post('/', (req, res) => {
   let sql = `
-                 SELECT *
-                 FROM usuarios
-                 WHERE usr_nombre = ?
-                   AND usr_password = ?`;
+              SELECT *
+              FROM usuarios
+              WHERE usr_nombre = ?
+              AND usr_password = ?`;
 
   let values = [req.body.user, req.body.password];
 
   conexion.query(sql, values, (err, result, fields) => {
     if (err) {
       res.json({
-        status: "error",
+        status: 'error',
         message:
-          "No es posible acceder en este momento. Intente nuevamente en unos minutos.",
+          'No es posible acceder en este momento. Intente nuevamente en unos minutos.',
       });
     } else {
       if (result.length == 1) {
@@ -24,8 +26,8 @@ router.post("/", (req, res) => {
         req.session.userId = result[0].usr_id;
 
         res.json({
-          status: "ok",
-          message: "sesión iniciada",
+          status: 'ok',
+          message: 'sesión iniciada',
           loggedUser: {
             id: req.session.userId,
             nombre: result[0].usr_nombre,
@@ -33,46 +35,51 @@ router.post("/", (req, res) => {
         });
       } else {
         res.json({
-          status: "error",
-          message: "Usuario y/o contraseña no validos",
+          status: 'error',
+          message: 'Usuario y/o contraseña no validos',
         });
       }
     }
   });
 });
 
-router.post("/signup", (req, res) => {
+router.post('/signup', (req, res) => {
   let sqlInsert = `INSERT INTO usuarios(usr_nombre, usr_email, usr_password)
                         VALUES( ?, ?, ?)`;
-  let values = [req.body.nombreUsuario, req.body.email, req.body.password];
+  let values = [req.body.nombreUsuario, req.body.email];
+  const password = req.body.password;
+
+  // HAGO HASH DE PASSWORD Y LO AGREGO A VALUES
+  const hash = bcrypt.hashSync(password, saltRounds);
+  values.push(`${hash}`);
 
   conexion.query(sqlInsert, values, function (err, result, fields) {
     if (err) {
       res.json({
-        status: "error",
-        message: "Error al registrarse",
+        status: 'error',
+        message: 'Error al registrarse',
       });
     } else {
       res.json({
-        status: "ok",
-        message: "Usuario Creado",
+        status: 'ok',
+        message: 'Usuario Creado',
       });
     }
   });
 });
 
-router.delete("/", (req, res) => {
+router.delete('/', (req, res) => {
   req.session.destroy((err) => {
     if (err) {
       res.json({
-        status: "error",
-        message: "Error al cerrar la sesión",
+        status: 'error',
+        message: 'Error al cerrar la sesión',
       });
     } else {
-      res.clearCookie("cyberia");
+      res.clearCookie('cyberia');
       res.json({
-        status: "ok",
-        message: "Sesión cerrada",
+        status: 'ok',
+        message: 'Sesión cerrada',
       });
     }
   });

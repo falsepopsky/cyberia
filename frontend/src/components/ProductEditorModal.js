@@ -1,28 +1,28 @@
-import React, { useState, useEffect } from "react";
-import Row from "react-bootstrap/Row";
-import Col from "react-bootstrap/Col";
-import Modal from "react-bootstrap/Modal";
-import Form from "react-bootstrap/form";
-import Button from "react-bootstrap/Button";
-import Swal from "sweetalert2";
+import React, { useState, useEffect } from 'react';
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
+import Modal from 'react-bootstrap/Modal';
+import Form from 'react-bootstrap/form';
+import Button from 'react-bootstrap/Button';
+import Swal from 'sweetalert2';
 
 const ProductEditorModal = (props) => {
-  const [nombreAlbum, setNombreAlbum] = useState("");
-  const [catalog, setCatalog] = useState("");
-  const [fechaLanzamiento, setFechaLanzamiento] = useState("");
-  const [tracklist, setTracklist] = useState("");
-  const [descripcion, setDescripcion] = useState("");
-  const [cover, setCover] = useState("");
-  const [precio, setPrecio] = useState("");
-  const [previewCover, setPreviewCover] = useState("");
+  const [nombreAlbum, setNombreAlbum] = useState('');
+  const [catalog, setCatalog] = useState('');
+  const [fechaLanzamiento, setFechaLanzamiento] = useState('');
+  const [tracklist, setTracklist] = useState('');
+  const [descripcion, setDescripcion] = useState('');
+  const [cover, setCover] = useState('');
+  const [precio, setPrecio] = useState('');
+  const [previewCover, setPreviewCover] = useState('');
 
   // Traigo lista de Artistas
 
-  const [artistCategory, setArtistCategory] = useState("");
-  const [artistas, setArtistas] = useState([{ id: "", nombre: "Todas" }]);
+  const [artistCategory, setArtistCategory] = useState('');
+  const [artistas, setArtistas] = useState([{ id: '', nombre: 'Todas' }]);
 
   useEffect(() => {
-    fetch("http://localhost:8888/artistas")
+    fetch('http://localhost:8888/artistas')
       .then((response) => response.json())
       .then((dataArtistas) => {
         setArtistas(dataArtistas);
@@ -31,7 +31,11 @@ const ProductEditorModal = (props) => {
 
   const artistasOptions = () => {
     let artists = artistas.map((artista) => {
-      return <option value={artista.id}>{artista.nombre}</option>;
+      return (
+        <option value={artista.id} key={artista.id}>
+          {artista.nombre}
+        </option>
+      );
     });
 
     return artists;
@@ -43,11 +47,11 @@ const ProductEditorModal = (props) => {
 
   // Traigo lista de Series
 
-  const [seriesCategory, setSeriesCategory] = useState("");
-  const [series, setSeries] = useState([{ id: "", nombre: "Todas" }]);
+  const [seriesCategory, setSeriesCategory] = useState('');
+  const [series, setSeries] = useState([{ id: '', nombre: 'Todas' }]);
 
   useEffect(() => {
-    fetch("http://localhost:8888/series")
+    fetch('http://localhost:8888/series')
       .then((response) => response.json())
       .then((dataSeries) => {
         setSeries(dataSeries);
@@ -56,7 +60,11 @@ const ProductEditorModal = (props) => {
 
   const seriesOptions = () => {
     let seres = series.map((serie) => {
-      return <option value={serie.id}>{serie.nombre}</option>;
+      return (
+        <option value={serie.id} key={serie.id}>
+          {serie.nombre}
+        </option>
+      );
     });
 
     return seres;
@@ -68,11 +76,11 @@ const ProductEditorModal = (props) => {
 
   // Traigo lista de formatos de Audio
 
-  const [audioCategory, setAudioCategory] = useState("");
-  const [audios, setAudios] = useState([{ id: "", nombre: "Todas" }]);
+  const [audioCategory, setAudioCategory] = useState('');
+  const [audios, setAudios] = useState([{ id: '', nombre: 'Todas' }]);
 
   useEffect(() => {
-    fetch("http://localhost:8888/formatosaudio")
+    fetch('http://localhost:8888/formatosaudio')
       .then((response) => response.json())
       .then((dataAudios) => {
         setAudios(dataAudios);
@@ -81,7 +89,11 @@ const ProductEditorModal = (props) => {
 
   const audiosOptions = () => {
     let audio = audios.map((audio) => {
-      return <option value={audio.id}>{audio.nombre}</option>;
+      return (
+        <option value={audio.id} key={audio.id}>
+          {audio.nombre}
+        </option>
+      );
     });
 
     return audio;
@@ -93,11 +105,11 @@ const ProductEditorModal = (props) => {
 
   // Traigo lista de generos musicales
 
-  const [generoCategory, setGeneroCategory] = useState("");
-  const [generos, setGeneros] = useState([{ id: "", nombre: "Todas" }]);
+  const [generoCategory, setGeneroCategory] = useState('');
+  const [generos, setGeneros] = useState([{ id: '', nombre: 'Todas' }]);
 
   useEffect(() => {
-    fetch("http://localhost:8888/generosmusicales")
+    fetch('http://localhost:8888/generosmusicales')
       .then((response) => response.json())
       .then((dataGeneros) => {
         setGeneros(dataGeneros);
@@ -106,7 +118,11 @@ const ProductEditorModal = (props) => {
 
   const generosOptions = () => {
     let genre = generos.map((genero) => {
-      return <option value={genero.id}>{genero.nombre}</option>;
+      return (
+        <option value={genero.id} key={genero.id}>
+          {genero.nombre}
+        </option>
+      );
     });
 
     return genre;
@@ -150,40 +166,40 @@ const ProductEditorModal = (props) => {
   const handleSave = () => {
     const formData = new FormData();
 
-    formData.append("artistCategory", artistCategory);
-    formData.append("nombreAlbum", nombreAlbum);
-    formData.append("catalog", catalog);
-    formData.append("fechaLanzamiento", fechaLanzamiento);
-    formData.append("seriesCategory", seriesCategory);
-    formData.append("cover", cover);
-    formData.append("tracklist", tracklist);
-    formData.append("descripcion", descripcion);
-    formData.append("precio", precio);
-    formData.append("audioCategory", audioCategory);
-    formData.append("generoCategory", generoCategory);
+    formData.append('artistCategory', artistCategory);
+    formData.append('nombreAlbum', nombreAlbum);
+    formData.append('catalog', catalog);
+    formData.append('fechaLanzamiento', fechaLanzamiento);
+    formData.append('seriesCategory', seriesCategory);
+    formData.append('cover', cover);
+    formData.append('tracklist', tracklist);
+    formData.append('descripcion', descripcion);
+    formData.append('precio', precio);
+    formData.append('audioCategory', audioCategory);
+    formData.append('generoCategory', generoCategory);
 
-    let url = "http://localhost:8888/musica";
+    let url = 'http://localhost:8888/musica';
 
-    let method = "POST";
+    let method = 'POST';
 
     if (props.idProducto) {
-      url += "/" + props.idProducto;
-      method = "PUT";
+      url += '/' + props.idProducto;
+      method = 'PUT';
     }
 
     fetch(url, {
       method: method,
       body: formData,
-      credentials: "include",
+      credentials: 'include',
     })
       .then((response) => response.json())
       .then((data) => {
-        if (data.status === "ok") {
+        if (data.status === 'ok') {
           props.onProductSaved(data.message);
         } else {
           Swal.fire({
             text: data.message,
-            icon: "error",
+            icon: 'error',
           });
         }
       })
@@ -194,7 +210,7 @@ const ProductEditorModal = (props) => {
 
   useEffect(() => {
     if (props.idProducto) {
-      fetch("http://localhost:8888/musica/" + props.idProducto)
+      fetch('http://localhost:8888/musica/' + props.idProducto)
         .then((response) => response.json())
         .then((data) => {
           setArtistCategory(data.artistCategory);
@@ -205,30 +221,35 @@ const ProductEditorModal = (props) => {
           setPrecio(data.precio);
           setDescripcion(data.descripcion);
           setTracklist(data.tracklist);
-          setCover("");
+          setCover('');
           setPreviewCover(data.cover);
           setAudioCategory(data.audio);
           setGeneroCategory(data.genero);
         });
     } else {
-      setArtistCategory("");
-      setNombreAlbum("");
-      setCatalog("");
-      setFechaLanzamiento("");
-      setSeriesCategory("");
-      setCover("");
-      setPreviewCover("");
-      setTracklist("");
-      setDescripcion("");
-      setPrecio("");
-      setAudioCategory("");
-      setGeneroCategory("");
+      setArtistCategory('');
+      setNombreAlbum('');
+      setCatalog('');
+      setFechaLanzamiento('');
+      setSeriesCategory('');
+      setCover('');
+      setPreviewCover('');
+      setTracklist('');
+      setDescripcion('');
+      setPrecio('');
+      setAudioCategory('');
+      setGeneroCategory('');
     }
   }, [props.idProducto]);
 
   return (
-    <Modal show={props.show} onHide={props.handleHide} size="lg">
-      <Modal.Header CloseButton>
+    <Modal
+      show={props.show}
+      onHide={props.handleHide}
+      size="lg"
+      animation={false}
+    >
+      <Modal.Header closeButton>
         <Modal.Title>Publicacion</Modal.Title>
       </Modal.Header>
 
@@ -289,7 +310,7 @@ const ProductEditorModal = (props) => {
               <Form.Group className="d-flex justify-content-center">
                 {previewCover && (
                   <img
-                    style={{ height: "25vh" }}
+                    style={{ height: '25vh' }}
                     src={previewCover}
                     alt="cover-album"
                   />

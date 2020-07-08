@@ -120,6 +120,7 @@ const ListadoTabla = (props) => {
         </Col>
       </Row>
       <ProductEditorModal
+        key={selectedProduct}
         show={showProductEditorModal}
         handleHide={handleHideProductEditorModal}
         onProductSaved={handleProductSaved}

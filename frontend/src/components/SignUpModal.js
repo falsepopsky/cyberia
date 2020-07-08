@@ -1,17 +1,17 @@
-import React, { useState } from "react";
-import Modal from "react-bootstrap/Modal";
-import Button from "react-bootstrap/Button";
-import Form from "react-bootstrap/Form";
-import Row from "react-bootstrap/Row";
-import Col from "react-bootstrap/Col";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faUser, faEnvelope, faLock } from "@fortawesome/free-solid-svg-icons";
-import Swal from "sweetalert2";
+import React, { useState } from 'react';
+import Modal from 'react-bootstrap/Modal';
+import Button from 'react-bootstrap/Button';
+import Form from 'react-bootstrap/Form';
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faUser, faEnvelope, faLock } from '@fortawesome/free-solid-svg-icons';
+import Swal from 'sweetalert2';
 
 const SignUpModal = (props) => {
-  const [nombreUsuario, setNombreUsuario] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [nombreUsuario, setNombreUsuario] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
 
   const handleUserNameChange = (event) => {
     setNombreUsuario(event.target.value);
@@ -24,38 +24,38 @@ const SignUpModal = (props) => {
   };
 
   const handleSave = () => {
-    let url = "http://localhost:8888/auth/signup";
+    let url = 'http://localhost:8888/auth/signup';
     const formData = new FormData();
 
-    formData.append("nombreUsuario", nombreUsuario);
-    formData.append("email", email);
-    formData.append("password", password);
+    formData.append('nombreUsuario', nombreUsuario);
+    formData.append('email', email);
+    formData.append('password', password);
 
     fetch(url, {
-      method: "POST",
+      method: 'POST',
       body: formData,
-      credentials: "include",
+      credentials: 'include',
     })
       .then((response) => response.json())
       .then((data) => {
-        if (data.status === "ok") {
+        if (data.status === 'ok') {
           Swal.fire({
             text: data.message,
-            icon: "success",
+            icon: 'success',
           });
           props.handleHide();
         } else {
           Swal.fire({
-            title: "Error!",
+            title: 'Error!',
             text: data.message,
-            icon: "error",
+            icon: 'error',
           });
         }
       });
   };
 
   return (
-    <Modal show={props.show} onHide={props.handleHide}>
+    <Modal show={props.show} onHide={props.handleHide} animation={false}>
       <Modal.Header closeButton>
         <Modal.Title>Create Account</Modal.Title>
       </Modal.Header>
@@ -71,7 +71,7 @@ const SignUpModal = (props) => {
               type="text"
               value={nombreUsuario}
               onChange={handleUserNameChange}
-              maxlength="13"
+              maxLength="13"
             />
           </Col>
         </Form.Group>
@@ -85,7 +85,7 @@ const SignUpModal = (props) => {
               type="email"
               value={email}
               onChange={handleEmailChange}
-              maxlength="29"
+              maxLength="29"
             />
           </Col>
         </Form.Group>
@@ -98,8 +98,8 @@ const SignUpModal = (props) => {
               type="password"
               value={password}
               onChange={handlePasswordChange}
-              minlength="5"
-              maxlength="15"
+              minLength="5"
+              maxLength="15"
             />
           </Col>
         </Form.Group>

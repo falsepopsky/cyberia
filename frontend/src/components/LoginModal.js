@@ -1,15 +1,15 @@
-import React, { useState } from "react";
-import Modal from "react-bootstrap/Modal";
-import Button from "react-bootstrap/Button";
-import Form from "react-bootstrap/Form";
-import Row from "react-bootstrap/Row";
-import Col from "react-bootstrap/Col";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faUser, faLock } from "@fortawesome/free-solid-svg-icons";
+import React, { useState } from 'react';
+import Modal from 'react-bootstrap/Modal';
+import Button from 'react-bootstrap/Button';
+import Form from 'react-bootstrap/Form';
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faUser, faLock } from '@fortawesome/free-solid-svg-icons';
 
 const LoginModal = (props) => {
   const handleLoginClick = () => {
-    let url = "http://localhost:8888/auth";
+    let url = 'http://localhost:8888/auth';
 
     let params = {
       user: nombreUsuario,
@@ -17,16 +17,16 @@ const LoginModal = (props) => {
     };
 
     fetch(url, {
-      method: "POST",
-      credentials: "include",
+      method: 'POST',
+      credentials: 'include',
       body: JSON.stringify(params),
       headers: {
-        "Content-Type": "application/json",
+        'Content-Type': 'application/json',
       },
     })
       .then((response) => response.json())
       .then((data) => {
-        if (data.status === "ok") {
+        if (data.status === 'ok') {
           props.handleLoginSuccess(data.loggedUser);
           props.handleHide();
         } else {
@@ -35,8 +35,8 @@ const LoginModal = (props) => {
       });
   };
 
-  const [nombreUsuario, setNombreUsuario] = useState("");
-  const [password, setPassword] = useState("");
+  const [nombreUsuario, setNombreUsuario] = useState('');
+  const [password, setPassword] = useState('');
 
   const handleUserNameChange = (event) => {
     setNombreUsuario(event.target.value);
@@ -47,7 +47,7 @@ const LoginModal = (props) => {
   };
 
   return (
-    <Modal show={props.show} onHide={props.handleHide}>
+    <Modal show={props.show} onHide={props.handleHide} animation={false}>
       <Modal.Header closeButton>
         <Modal.Title>Login</Modal.Title>
       </Modal.Header>
@@ -62,7 +62,7 @@ const LoginModal = (props) => {
               type="text"
               value={nombreUsuario}
               onChange={handleUserNameChange}
-              maxlength="13"
+              maxLength="13"
             />
           </Col>
         </Form.Group>
@@ -75,8 +75,8 @@ const LoginModal = (props) => {
               type="password"
               value={password}
               onChange={handlePasswordChange}
-              minlength="5"
-              maxlength="15"
+              minLength="5"
+              maxLength="15"
             />
           </Col>
         </Form.Group>
