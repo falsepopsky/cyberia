@@ -12,17 +12,6 @@ const fileUpload = require('express-fileupload');
 
 const sessionRoutes = require('./routes/session_routes');
 
-// categorias
-
-const artistasRoutes = require('./routes/categoria_artistas_routes');
-const audiosRoutes = require('./routes/categoria_audios_routes');
-const seriesRoutes = require('./routes/categoria_series_routes');
-const generosRoutes = require('./routes/categoria_generos_routes');
-
-// publicaciones normales
-
-const eventosRoutes = require('./routes/publicaciones_evento_routes');
-
 // Iniciacion
 
 const app = express();
@@ -62,12 +51,9 @@ app.use(
 // routes
 
 app.use('/auth', sessionRoutes);
-app.use('/eventos', eventosRoutes);
-app.use('/artistas', artistasRoutes);
-app.use('/series', seriesRoutes);
-app.use('/formatosaudio', audiosRoutes);
-app.use('/generosmusicales', generosRoutes);
+app.use(require('./routes/categorias.routes'));
 app.use(require('./routes/publicaciones.musica.routes'));
+app.use(require('./routes/publicaciones.evento.routes'));
 app.use(require('./routes/calendario.eventos.routes'));
 
 app.listen(8888, () => {
