@@ -42,6 +42,7 @@ const SignUpModal = (props) => {
           Swal.fire({
             text: data.message,
             icon: 'success',
+            scrollbarPadding: false,
           });
           props.handleHide();
         } else {
@@ -49,6 +50,7 @@ const SignUpModal = (props) => {
             title: 'Error!',
             text: data.message,
             icon: 'error',
+            scrollbarPadding: false,
           });
         }
       });

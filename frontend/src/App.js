@@ -44,6 +44,7 @@ function App() {
           Swal.fire({
             text: data.message,
             icon: 'success',
+            scrollbarPadding: false,
           });
           setUsuario(null);
           setAdmin(false);
@@ -52,6 +53,7 @@ function App() {
             title: 'Error!',
             text: data.message,
             icon: 'error',
+            scrollbarPadding: false,
           });
         }
       });

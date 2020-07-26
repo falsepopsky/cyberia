@@ -22,7 +22,6 @@ const generosRoutes = require('./routes/categoria_generos_routes');
 // publicaciones normales
 
 const eventosRoutes = require('./routes/publicaciones_evento_routes');
-const musicaRoutes = require('./routes/publicaciones_musica_routes');
 
 // Iniciacion
 
@@ -68,7 +67,7 @@ app.use('/artistas', artistasRoutes);
 app.use('/series', seriesRoutes);
 app.use('/formatosaudio', audiosRoutes);
 app.use('/generosmusicales', generosRoutes);
-app.use('/musica', musicaRoutes);
+app.use(require('./routes/publicaciones.musica.routes'));
 app.use(require('./routes/calendario.eventos.routes'));
 
 app.listen(8888, () => {

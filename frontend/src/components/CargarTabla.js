@@ -31,6 +31,7 @@ const ListadoTabla = (props) => {
     Swal.fire({
       text: message,
       icon: 'success',
+      scrollbarPadding: false,
     });
   };
 
@@ -57,6 +58,7 @@ const ListadoTabla = (props) => {
       showCancelButton: true,
       confirmButtonText: 'Aceptar',
       cancelButtonText: 'Cancelar',
+      scrollbarPadding: false,
     }).then((result) => {
       if (result.value) {
         fetch(`http://localhost:8888/musica/${id}`, {
@@ -69,6 +71,7 @@ const ListadoTabla = (props) => {
               Swal.fire({
                 text: data.message,
                 icon: 'success',
+                scrollbarPadding: false,
               });
 
               cargarListadoProductos();
@@ -76,6 +79,7 @@ const ListadoTabla = (props) => {
               Swal.fire({
                 text: data.message,
                 icon: 'error',
+                scrollbarPadding: false,
               });
             }
           });

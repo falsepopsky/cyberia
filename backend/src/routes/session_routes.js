@@ -4,16 +4,15 @@ const conexion = require('../connection');
 const bcrypt = require('bcrypt');
 const saltRounds = 10;
 
-router.post('/', (req, res) => {
+router.post('/', async (req, res) => {
   let sql = `
               SELECT *
               FROM usuarios
-              WHERE usr_nombre = ?
-              AND usr_password = ?`;
+              WHERE usr_nombre = ?`;
 
-  let values = [req.body.user, req.body.password];
+  let values = [req.body.user];
 
-  conexion.query(sql, values, (err, result, fields) => {
+  conexion.query(sql, values, async (err, result, fields) => {
     if (err) {
       res.json({
         status: 'error',
@@ -22,17 +21,23 @@ router.post('/', (req, res) => {
       });
     } else {
       if (result.length == 1) {
-        req.session.user = req.body.user;
-        req.session.userId = result[0].usr_id;
+        const password = await bcrypt.compare(
+          req.body.password,
+          result[0].usr_password
+        );
 
-        res.json({
-          status: 'ok',
-          message: 'sesión iniciada',
-          loggedUser: {
-            id: req.session.userId,
-            nombre: result[0].usr_nombre,
-          },
-        });
+        if (password) {
+          req.session.user = req.body.user;
+          req.session.userId = result[0].usr_id;
+          res.json({
+            status: 'ok',
+            message: 'sesión iniciada',
+            loggedUser: {
+              id: req.session.userId,
+              nombre: result[0].usr_nombre,
+            },
+          });
+        }
       } else {
         res.json({
           status: 'error',
