@@ -1,18 +1,14 @@
-const express = require('express');
-const router = express.Router();
+const sessionCtrl = {};
 const conexion = require('../connection');
 const bcrypt = require('bcrypt');
 const saltRounds = 10;
 
-router.post('/', async (req, res) => {
-  let sql = `
-              SELECT *
-              FROM usuarios
-              WHERE usr_nombre = ?`;
+sessionCtrl.logIn = (req, res) => {
+  let sql = `SELECT * FROM usuarios WHERE usr_nombre = ?`;
 
-  let values = [req.body.user];
+  let value = req.body.user;
 
-  conexion.query(sql, values, async (err, result, fields) => {
+  conexion.query(sql, value, async (err, result, fields) => {
     if (err) {
       res.json({
         status: 'error',
@@ -46,11 +42,10 @@ router.post('/', async (req, res) => {
       }
     }
   });
-});
+};
 
-router.post('/signup', (req, res) => {
-  let sqlInsert = `INSERT INTO usuarios(usr_nombre, usr_email, usr_password)
-                        VALUES( ?, ?, ?)`;
+sessionCtrl.signUp = (req, res) => {
+  let sqlInsert = `INSERT INTO usuarios(usr_nombre, usr_email, usr_password) VALUES( ?, ?, ?)`;
   let values = [req.body.nombreUsuario, req.body.email];
   const password = req.body.password;
 
@@ -71,9 +66,9 @@ router.post('/signup', (req, res) => {
       });
     }
   });
-});
+};
 
-router.delete('/', (req, res) => {
+sessionCtrl.destroySession = (req, res) => {
   req.session.destroy((err) => {
     if (err) {
       res.json({
@@ -88,6 +83,6 @@ router.delete('/', (req, res) => {
       });
     }
   });
-});
+};
 
-module.exports = router;
+module.exports = sessionCtrl;

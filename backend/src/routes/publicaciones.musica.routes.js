@@ -2,8 +2,8 @@ const express = require('express');
 const router = express.Router();
 
 const {
-  publicacionesTotales,
-  publicacionesTarjeta,
+  publicacionesMusica,
+  publicacionesMusicaTarjeta,
   publicacionFormateadaPorId,
   publicacionLayer,
   ultimasCuatroPublicaciones,
@@ -15,11 +15,11 @@ const {
 
 // Obtener todas las publicaciones de música
 
-router.get('/musica/', publicacionesTotales);
+router.get('/musica/', publicacionesMusica);
 
 // Formateado para la tarjeta Música
 
-router.get('/musica/listamusicaroutes', publicacionesTarjeta);
+router.get('/musica/listamusicaroutes', publicacionesMusicaTarjeta);
 
 // Formateado para la publicación Música
 

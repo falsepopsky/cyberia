@@ -39,10 +39,10 @@ eventosCtrl.agregarPublicacionEvento = (req, res) => {
   let imageFileName = '';
 
   if (req.files) {
-    let cover = req.files.cover;
+    let banner = req.files.bannerEvento;
 
-    imageFileName = Date.now() + path.extname(cover.name);
-    cover.mv('./public/images/' + imageFileName, function (err) {
+    imageFileName = Date.now() + path.extname(banner.name);
+    banner.mv('./public/images/' + imageFileName, function (err) {
       if (err) {
         console.log(err);
       }
@@ -51,23 +51,21 @@ eventosCtrl.agregarPublicacionEvento = (req, res) => {
     console.log('No hay archivo');
   }
 
-  let sql = `INSERT INTO eventos (evento_nombre, evento_banner, evento_fecha, evento_apertura, evento_cierre, evento_precio_puerta, evento_precio_advance, evento_lineup, evento_descripcion, evento_genero)
-  VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`;
+  let sqlInsert = `INSERT INTO eventos(evento_nombre, evento_banner, evento_fecha, evento_apertura, evento_cierre, evento_precio_puerta, evento_precio_advance, evento_lineup, evento_descripcion, evento_genero) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`;
 
-  let params = [
-    req.query.nombre,
+  const values = [
+    req.body.nombre,
     `http://localhost:8888/images/${imageFileName}`,
-    req.query.fecha,
-    req.query.apertura,
-    req.query.cierre,
-    req.query.precio_puerta,
-    req.query.precio_advance,
-    req.query.lineup,
-    req.query.descripcion,
-    req.query.genero,
+    req.body.fecha,
+    req.body.apertura,
+    req.body.cierre,
+    req.body.precio_puerta,
+    req.body.precio_advance,
+    req.body.lineup,
+    req.body.descripcion,
+    req.body.genero,
   ];
-
-  conexion.query(sql, params, function (err, result, fields) {
+  conexion.query(sqlInsert, values, function (err, result, fields) {
     if (err) {
       res.json({
         status: 'error',
@@ -83,47 +81,79 @@ eventosCtrl.agregarPublicacionEvento = (req, res) => {
 };
 
 eventosCtrl.modificarPublicacionEvento = (req, res) => {
-  let sql = `UPDATE eventos 
-    SET evento_id = ?, 
-    evento_nombre = ?, 
-    evento_banner = ?, 
-    evento_lineup = ?, 
-    evento_descripcion = ?, 
-    evento_apertura = ?, 
-    evento_cierre = ?, 
-    evento_precio_puerta = ?, 
-    evento_precio_advance = ?,
-    evento_fecha = ?
-    WHERE evento_id = ?`;
-  let params = [
-    req.body.id,
+  let imageFileName = '';
+
+  let sqlUpdate = `UPDATE eventos 
+    SET evento_nombre = ?, 
+        evento_fecha = ?, 
+        evento_apertura = ?,
+        evento_cierre = ?,
+        evento_precio_puerta = ?,
+        evento_precio_advance = ?,
+        evento_lineup = ?,
+        evento_descripcion = ?, 
+        evento_genero = ?`;
+
+  const valuesUpdate = [
     req.body.nombre,
-    req.body.banner,
-    req.body.lineup,
-    req.body.descripcion,
+    req.body.fecha,
     req.body.apertura,
     req.body.cierre,
     req.body.precio_puerta,
     req.body.precio_advance,
-    req.body.fecha,
-    req.params.id,
+    req.body.lineup,
+    req.body.descripcion,
+    req.body.genero,
   ];
-  conexion.query(sql, params, function (err, result, fields) {
-    let respuesta;
 
+  if (req.files) {
+    conexion.query(
+      `SELECT evento_banner FROM eventos WHERE evento_id = ${req.params.id}`,
+      function (err, result, fields) {
+        if (err) {
+          console.log('Error');
+        } else {
+          fs.unlink(
+            './public/images/' + path.basename(result[0].evento_banner),
+            (err) => {
+              if (err) throw err;
+
+              console.log('Archivo borrado');
+            }
+          );
+        }
+      }
+    );
+
+    let banner = req.files.bannerEvento;
+    imageFileName = Date.now() + path.extname(banner.name);
+    banner.mv('./public/images/' + imageFileName, function (err) {
+      if (err) {
+        console.log(err);
+      }
+    });
+
+    sqlUpdate += ', evento_banner = ?';
+    valuesUpdate.push(`http://localhost:8888/images/${imageFileName}`);
+  } else {
+    console.log('No hay archivo');
+  }
+
+  sqlUpdate += ' WHERE evento_id = ?';
+  valuesUpdate.push(req.params.id);
+
+  conexion.query(sqlUpdate, valuesUpdate, function (err, result, fields) {
     if (err) {
-      respuesta = {
+      res.json({
         status: 'error',
-        message: 'Error al modificar el evento',
-      };
+        message: 'Error al modificar la publicación',
+      });
     } else {
-      respuesta = {
+      res.json({
         status: 'ok',
-        message: 'El evento se modifico con exito',
-      };
+        message: 'Publicación modificada correctamente',
+      });
     }
-
-    res.json(respuesta);
   });
 };
 

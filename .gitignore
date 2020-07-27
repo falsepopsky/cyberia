@@ -1,6 +1,6 @@
 backend/node_modules
-backend/sessions
-
+backend/sessions/*
+backend/src/.env
 frontend/node_modules
 
 CyberiaReactApp.code-workspace

@@ -1,16 +1,9 @@
-process.env.BASE_URL = 'http://localhost:8888/';
-process.env.IMAGES_URL = process.env.BASE_URL + 'images/';
-
 const express = require('express');
 const cors = require('cors');
 const bodyParser = require('body-parser');
 const fileUpload = require('express-fileupload');
-
-/////////////// routes variables
-
-// session
-
-const sessionRoutes = require('./routes/session_routes');
+const dotenv = require('dotenv');
+dotenv.config();
 
 // Iniciacion
 
@@ -50,7 +43,7 @@ app.use(
 
 // routes
 
-app.use('/auth', sessionRoutes);
+app.use(require('./routes/session.routes'));
 app.use(require('./routes/categorias.routes'));
 app.use(require('./routes/publicaciones.musica.routes'));
 app.use(require('./routes/publicaciones.evento.routes'));
