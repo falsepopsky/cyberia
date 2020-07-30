@@ -2,8 +2,7 @@ const express = require('express');
 const cors = require('cors');
 const bodyParser = require('body-parser');
 const fileUpload = require('express-fileupload');
-const dotenv = require('dotenv');
-dotenv.config();
+require('dotenv').config();
 
 // Iniciacion
 
@@ -17,7 +16,6 @@ app.use(fileUpload());
 
 const session = require('express-session');
 const FileStore = require('session-file-store')(session);
-const auth = require('./auth');
 
 // static files
 

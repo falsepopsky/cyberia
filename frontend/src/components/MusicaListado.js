@@ -1,16 +1,19 @@
-import React, { useState, useEffect } from "react";
-import Row from "react-bootstrap/Row";
-import MusicaTarjeta from "./MusicaTarjeta";
+import React, { useState, useEffect } from 'react';
+import Row from 'react-bootstrap/Row';
+import MusicaTarjeta from './MusicaTarjeta';
 
 const ListadoMusica = () => {
   const [publicaciones, setPublicaciones] = useState([]);
 
   useEffect(() => {
-    fetch("http://localhost:8888/musica/listamusicaroutes")
-      .then((response) => response.json())
-      .then((data) => {
-        setPublicaciones(data);
-      });
+    async function getMusicPubs() {
+      let response = await fetch(
+        'http://localhost:8888/musica/listamusicaroutes'
+      );
+      let data = await response.json();
+      setPublicacion(data);
+    }
+    getMusicPubs();
   }, []);
 
   return (

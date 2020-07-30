@@ -1,5 +1,6 @@
 const express = require('express');
 const router = express.Router();
+const auth = require('../helpers/auth');
 
 const {
   publicacionesMusica,
@@ -33,8 +34,8 @@ router.get('/musica/layer', publicacionLayer);
 
 router.get('/musica/ultimascuatropublicaciones', ultimasCuatroPublicaciones);
 router.get('/musica/:id', publicacionId);
-router.post('/musica/', agregarPublicacion);
-router.put('/musica/:id', modificarPublicacion);
-router.delete('/musica/:id', borrarPublicacion);
+router.post('/musica/', auth, agregarPublicacion);
+router.put('/musica/:id', auth, modificarPublicacion);
+router.delete('/musica/:id', auth, borrarPublicacion);
 
 module.exports = router;

@@ -23,11 +23,14 @@ export default () => {
   let [publicacion, setPublicacion] = useState(null);
 
   useEffect(() => {
-    fetch('http://localhost:8888/musica/publicacionmusica/' + id)
-      .then((response) => response.json())
-      .then((data) => {
-        setPublicacion(data);
-      });
+    async function getMusicDetail() {
+      let response = await fetch(
+        'http://localhost:8888/musica/publicacionmusica/' + id
+      );
+      let data = await response.json();
+      setPublicacion(data);
+    }
+    getMusicDetail();
   }, [id]);
 
   return (

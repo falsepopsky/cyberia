@@ -1,5 +1,6 @@
 const express = require('express');
 const router = express.Router();
+const auth = require('../helpers/auth');
 
 const {
   publicacionesEventos,
@@ -17,8 +18,8 @@ router.get('/eventos/', publicacionesEventos);
 router.get('/eventos/thisweek/', publicacionesSemanaCorrienteEventos);
 
 router.get('/eventos/detail/:id', publicacionIdEvento);
-router.post('/eventos/', agregarPublicacionEvento);
-router.put('/eventos/:id', modificarPublicacionEvento);
-router.delete('/eventos/:id', borrarPublicacionEvento);
+router.post('/eventos/', auth, agregarPublicacionEvento);
+router.put('/eventos/:id', auth, modificarPublicacionEvento);
+router.delete('/eventos/:id', auth, borrarPublicacionEvento);
 
 module.exports = router;

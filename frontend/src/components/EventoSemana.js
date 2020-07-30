@@ -8,11 +8,12 @@ const ListadoEvento = () => {
   const [eventos, setEventos] = useState([]);
 
   useEffect(() => {
-    fetch('http://localhost:8888/eventos/thisweek')
-      .then((response) => response.json())
-      .then((data) => {
-        setEventos(data);
-      });
+    async function getEventsFromThisWeek() {
+      let response = await fetch('http://localhost:8888/eventos/thisweek');
+      let data = await response.json();
+      setEventos(data);
+    }
+    getEventsFromThisWeek();
   }, []);
 
   const responsive = {

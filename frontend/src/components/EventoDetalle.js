@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from "react";
-import Row from "react-bootstrap/Row";
-import Col from "react-bootstrap/Col";
-import Button from "react-bootstrap/Button";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import React, { useState, useEffect } from 'react';
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
+import Button from 'react-bootstrap/Button';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
   faCalendarAlt,
   faHourglassStart,
@@ -11,21 +11,22 @@ import {
   faHandHoldingUsd,
   faMusic,
   faCartPlus,
-} from "@fortawesome/free-solid-svg-icons";
-import "./styles/EventoDetalle.css";
-import { useParams } from "react-router-dom";
-import moment from "moment";
+} from '@fortawesome/free-solid-svg-icons';
+import './styles/EventoDetalle.css';
+import { useParams } from 'react-router-dom';
+import moment from 'moment';
 
 export default () => {
   let { id } = useParams();
   let [evento, setEvento] = useState(null);
 
   useEffect(() => {
-    fetch("http://localhost:8888/eventos/detail/" + id)
-      .then((response) => response.json())
-      .then((data) => {
-        setEvento(data);
-      });
+    async function getEventDetail() {
+      let response = await fetch('http://localhost:8888/eventos/detail/' + id);
+      let data = await response.json();
+      setEvento(data);
+    }
+    getEventDetail();
   }, [id]);
   return (
     evento && (
@@ -38,7 +39,7 @@ export default () => {
             className="mt-5 text-center align-items-stretch justify-content-center"
           >
             <img
-              style={{ maxWidth: "300px", maxHeight: "420px" }}
+              style={{ maxWidth: '300px', maxHeight: '420px' }}
               src={evento.bannerEvento}
               alt="banner-evento"
               className="imgFluid"
@@ -57,7 +58,7 @@ export default () => {
                 icon={faCalendarAlt}
                 transform="left-4"
               />
-              {moment(evento.fecha).format("MMM Do")}
+              {moment(evento.fecha).format('MMM Do')}
             </p>
             <p id="open-event">
               <FontAwesomeIcon
