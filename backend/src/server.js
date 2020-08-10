@@ -2,7 +2,11 @@ const express = require('express');
 const cors = require('cors');
 const bodyParser = require('body-parser');
 const fileUpload = require('express-fileupload');
+const session = require('express-session');
+const FileStore = require('session-file-store')(session);
 require('dotenv').config();
+
+const port = process.env.BASE_PORT;
 
 // Iniciacion
 
@@ -14,12 +18,11 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(fileUpload());
 
-const session = require('express-session');
-const FileStore = require('session-file-store')(session);
-
 // static files
 
 app.use('*/images', express.static('public/images'));
+
+// config
 
 app.use(
   cors({
@@ -47,6 +50,6 @@ app.use(require('./routes/publicaciones.musica.routes'));
 app.use(require('./routes/publicaciones.evento.routes'));
 app.use(require('./routes/calendario.eventos.routes'));
 
-app.listen(8888, () => {
-  console.log('Escuchando...');
+app.listen(port, () => {
+  console.log(`Escuchando en puerto: ${port}...`);
 });

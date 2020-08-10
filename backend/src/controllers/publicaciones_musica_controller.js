@@ -2,6 +2,7 @@ const publicacionesMusicaCtrl = {};
 const conexion = require('../connection');
 const path = require('path');
 const fs = require('fs');
+const imagesURL = process.env.IMAGES_URL;
 
 publicacionesMusicaCtrl.publicacionesMusica = (req, res) => {
   let sqlSelect = `SELECT pm_nombre_artista AS artistCategory, pm_nombre_album AS nombreAlbum, pm_catalogo AS catalog, pm_fecha_lanzamiento AS fechaLanzamiento, pm_series AS series, pm_cover AS cover, pm_tracklist AS tracklist, pm_descripcion AS descripcion, pm_precio AS precio, pm_audio AS audio, pm_genero AS genero
@@ -140,7 +141,7 @@ publicacionesMusicaCtrl.agregarPublicacion = (req, res) => {
     req.body.catalog,
     req.body.fechaLanzamiento,
     req.body.seriesCategory,
-    `http://localhost:8888/images/${imageFileName}`,
+    `${imagesURL}${imageFileName}`,
     req.body.tracklist,
     req.body.descripcion,
     req.body.precio,
