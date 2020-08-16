@@ -6,33 +6,37 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUser, faLock } from '@fortawesome/free-solid-svg-icons';
+import Swal from 'sweetalert2';
 
 const LoginModal = (props) => {
-  const handleLoginClick = () => {
+  const handleLoginClick = async function logIn() {
     let url = 'http://localhost:8888/auth';
-
     let params = {
       user: nombreUsuario,
       password: password,
     };
 
-    fetch(url, {
+    let response = await fetch(url, {
       method: 'POST',
       credentials: 'include',
       body: JSON.stringify(params),
       headers: {
         'Content-Type': 'application/json',
       },
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        if (data.status === 'ok') {
-          props.handleLoginSuccess(data.loggedUser);
-          props.handleHide();
-        } else {
-          alert(data.message);
-        }
+    });
+
+    let data = await response.json();
+    if (data.status === 'ok') {
+      props.handleLoginSuccess(data.loggedUser);
+      props.handleHide();
+    } else {
+      Swal.fire({
+        title: 'Error!',
+        text: data.message,
+        icon: 'error',
+        scrollbarPadding: false,
       });
+    }
   };
 
   const [nombreUsuario, setNombreUsuario] = useState('');

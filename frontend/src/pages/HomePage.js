@@ -7,6 +7,7 @@ import '../components/styles/HomePage.css';
 import EventoSemana from '../components/EventoSemana';
 import MusicaProductHomePage from '../components/MusicaProductHomePage';
 import ListaMusicaUltimosCuatro from '../components/ListaMusicaUltimosCuatro';
+import ContactForm from '../components/ContactForm';
 
 const HomePage = () => {
   return (
@@ -67,6 +68,8 @@ const HomePage = () => {
           </Link>
         </Col>
       </Row>
+
+      <ContactForm />
     </>
   );
 };

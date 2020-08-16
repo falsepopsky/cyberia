@@ -11,7 +11,7 @@ const ListadoMusica = () => {
         'http://localhost:8888/musica/listamusicaroutes'
       );
       let data = await response.json();
-      setPublicacion(data);
+      setPublicaciones(data);
     }
     getMusicPubs();
   }, []);

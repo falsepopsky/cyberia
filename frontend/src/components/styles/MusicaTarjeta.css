@@ -1,6 +1,6 @@
 #musica-tarjeta {
   background-color: #f1f1f1;
-  border: 0px;
+  border: 0;
   box-shadow: 3px 6px 10px 0px #000;
 }
 
@@ -8,12 +8,12 @@
   padding: 0;
 }
 
-#footer-musica-tarjeta {
+.footer-musica-tarjeta {
   background-color: #f1f1f1;
   border: 0;
 }
 
-#musica-tarjeta #footer-musica-tarjeta #nombre-artista-tarjeta {
+#musica-tarjeta .footer-musica-tarjeta .nombre-artista-tarjeta {
   color: #000;
   font-family: 'Roboto', sans-serif;
   letter-spacing: 0.159em;
@@ -23,7 +23,7 @@
   text-transform: uppercase;
 }
 
-#musica-tarjeta #footer-musica-tarjeta #nombre-album-tarjeta {
+#musica-tarjeta .footer-musica-tarjeta .nombre-album-tarjeta {
   color: #000;
   font-family: 'Roboto', sans-serif;
   letter-spacing: 0.087em;
@@ -33,6 +33,6 @@
   overflow-y: hidden;
 }
 
-#imagen-musica-tarjeta {
+.imagen-musica-tarjeta {
   pointer-events: none;
 }

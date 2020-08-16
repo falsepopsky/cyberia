@@ -23,7 +23,7 @@ const SignUpModal = (props) => {
     setPassword(event.target.value);
   };
 
-  const handleSave = () => {
+  const handleSave = async function SignUp() {
     let url = 'http://localhost:8888/auth/signup';
     const formData = new FormData();
 
@@ -31,35 +31,34 @@ const SignUpModal = (props) => {
     formData.append('email', email);
     formData.append('password', password);
 
-    fetch(url, {
+    let response = await fetch(url, {
       method: 'POST',
       body: formData,
       credentials: 'include',
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        if (data.status === 'ok') {
-          Swal.fire({
-            text: data.message,
-            icon: 'success',
-            scrollbarPadding: false,
-          });
-          props.handleHide();
-        } else {
-          Swal.fire({
-            title: 'Error!',
-            text: data.message,
-            icon: 'error',
-            scrollbarPadding: false,
-          });
-        }
+    });
+
+    let data = await response.json();
+    if (data.status === 'ok') {
+      Swal.fire({
+        text: data.message,
+        icon: 'success',
+        scrollbarPadding: false,
       });
+      props.handleHide();
+    } else {
+      Swal.fire({
+        title: 'Error!',
+        text: data.message,
+        icon: 'error',
+        scrollbarPadding: false,
+      });
+    }
   };
 
   return (
     <Modal show={props.show} onHide={props.handleHide} animation={false}>
       <Modal.Header closeButton>
-        <Modal.Title>Create Account</Modal.Title>
+        <Modal.Title>Create account</Modal.Title>
       </Modal.Header>
 
       <Modal.Body>

@@ -13,17 +13,16 @@ export default (props) => (
     <Card id="musica-tarjeta">
       <Card.Body>
         <img
-          id="imagen-musica-tarjeta"
           src={props.cover}
-          className="card-img-top"
-          alt="cover-music"
+          className="card-img-top imagen-musica-tarjeta"
+          alt={props.nombreAlbum}
         />
       </Card.Body>
 
-      <Card.Footer id="footer-musica-tarjeta">
-        <p id="nombre-artista-tarjeta">{props.nombreArtista}</p>
+      <Card.Footer className="footer-musica-tarjeta">
+        <p className="nombre-artista-tarjeta">{props.nombreArtista}</p>
         <Link to={'/musicdetalle/' + props.id}>
-          <p id="nombre-album-tarjeta">{props.nombreAlbum}</p>
+          <p className="nombre-album-tarjeta">{props.nombreAlbum}</p>
         </Link>
       </Card.Footer>
     </Card>
