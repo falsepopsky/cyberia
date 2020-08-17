@@ -9,7 +9,7 @@ const ListadoEvento = () => {
 
   useEffect(() => {
     async function getEventsFromThisWeek() {
-      let response = await fetch('http://localhost:8888/eventos/thisweek');
+      let response = await fetch('http://localhost:8888/api/eventos/thisweek');
       let data = await response.json();
       setEventos(data);
     }

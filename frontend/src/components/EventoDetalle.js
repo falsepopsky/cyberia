@@ -22,7 +22,9 @@ export default () => {
 
   useEffect(() => {
     async function getEventDetail() {
-      let response = await fetch('http://localhost:8888/eventos/detail/' + id);
+      let response = await fetch(
+        'http://localhost:8888/api/eventos/detail/' + id
+      );
       let data = await response.json();
       setEvento(data);
     }
@@ -41,7 +43,7 @@ export default () => {
             <img
               style={{ maxWidth: '300px', maxHeight: '420px' }}
               src={evento.bannerEvento}
-              alt="banner-evento"
+              alt={evento.tituloEvento}
               className="imgFluid"
             />
           </Col>
@@ -49,7 +51,7 @@ export default () => {
             sm={{ span: 6, offset: 2 }}
             md={{ span: 4, offset: 1 }}
             lg={{ span: 4, offset: 1 }}
-            className="mt-5 text-center align-items-stretch justify-content-center"
+            className="my-5 text-center align-items-stretch justify-content-center"
           >
             <h3 id="name-event">{evento.tituloEvento}</h3>
             <p id="date-event">
@@ -103,7 +105,7 @@ export default () => {
             </p>
             <br></br>
             <Button id="buy-evento" variant="info">
-              Buy <FontAwesomeIcon color="white" icon={faCartPlus} />
+              <FontAwesomeIcon color="white" icon={faCartPlus} /> Buy
             </Button>
             <p id="description-event">{evento.descripcion}</p>
           </Col>

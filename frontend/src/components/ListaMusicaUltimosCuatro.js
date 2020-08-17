@@ -1,16 +1,19 @@
-import React, { useState, useEffect } from "react";
-import Row from "react-bootstrap/Row";
-import MusicaTarjeta from "./MusicaTarjeta";
+import React, { useState, useEffect } from 'react';
+import Row from 'react-bootstrap/Row';
+import MusicaTarjeta from './MusicaTarjeta';
 
 const ListadoMusica = () => {
   const [publicaciones, setPublicaciones] = useState([]);
 
   useEffect(() => {
-    fetch("http://localhost:8888/musica/ultimascuatropublicaciones")
-      .then((response) => response.json())
-      .then((data) => {
-        setPublicaciones(data);
-      });
+    async function getLastFourPost() {
+      const API_ROUTE_LAST_FOUR_MUSIC_POSTS =
+        'http://localhost:8888/api/musica/ultimascuatropublicaciones';
+      let response = await fetch(API_ROUTE_LAST_FOUR_MUSIC_POSTS);
+      let data = await response.json();
+      setPublicaciones(data);
+    }
+    getLastFourPost();
   }, []);
 
   return (

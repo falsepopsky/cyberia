@@ -8,9 +8,9 @@ const {
   categoriasSeriesRoutes,
 } = require('../controllers/categorias_controller');
 
-router.get('/artistas', categoriasArtistasRoutes);
-router.get('/formatosaudio', categoriasAudiosRoutes);
-router.get('/generosmusicales', categoriasGenerosRoutes);
-router.get('/series', categoriasSeriesRoutes);
+router.get('/api/categorias/artistas', categoriasArtistasRoutes);
+router.get('/api/categorias/formatosaudio', categoriasAudiosRoutes);
+router.get('/api/categorias/generosmusicales', categoriasGenerosRoutes);
+router.get('/api/categorias/series', categoriasSeriesRoutes);
 
 module.exports = router;

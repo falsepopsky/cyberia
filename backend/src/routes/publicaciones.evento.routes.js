@@ -11,15 +11,15 @@ const {
   borrarPublicacionEvento,
 } = require('../controllers/publicaciones_evento_controller');
 
-router.get('/eventos/', publicacionesEventos);
+router.get('/api/eventos/', publicacionesEventos);
 
 // Trae los eventos de la semana corriente
 
-router.get('/eventos/thisweek/', publicacionesSemanaCorrienteEventos);
+router.get('/api/eventos/thisweek/', publicacionesSemanaCorrienteEventos);
 
-router.get('/eventos/detail/:id', publicacionIdEvento);
-router.post('/eventos/', auth, agregarPublicacionEvento);
-router.put('/eventos/:id', auth, modificarPublicacionEvento);
-router.delete('/eventos/:id', auth, borrarPublicacionEvento);
+router.get('/api/eventos/detail/:id', publicacionIdEvento);
+router.post('/api/eventos/', auth, agregarPublicacionEvento);
+router.put('/api/eventos/:id', auth, modificarPublicacionEvento);
+router.delete('/api/eventos/:id', auth, borrarPublicacionEvento);
 
 module.exports = router;

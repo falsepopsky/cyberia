@@ -7,12 +7,11 @@
 }
 
 h5 {
-  font-family: "VarelaRound";
-  color: white;
+  font-family: 'VarelaRound';
   text-transform: uppercase;
 }
 
 #footer p {
-  font-family: "VarelaRound";
+  font-family: 'VarelaRound';
   color: #c6a8a8;
 }

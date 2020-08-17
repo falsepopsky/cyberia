@@ -24,15 +24,18 @@ router.get('/musica/listamusicaroutes', publicacionesMusicaTarjeta);
 
 // Formateado para la publicación Música
 
-router.get('/musica/publicacionmusica/:id', publicacionFormateadaPorId);
+router.get('/api/musica/publicacionmusica/:id', publicacionFormateadaPorId);
 
 // Trae la última publicación de Layer
 
-router.get('/musica/layer', publicacionLayer);
+router.get('/api/musica/layer', publicacionLayer);
 
 // Trae las últimas 4 publicaciones de música en general
 
-router.get('/musica/ultimascuatropublicaciones', ultimasCuatroPublicaciones);
+router.get(
+  '/api/musica/ultimascuatropublicaciones',
+  ultimasCuatroPublicaciones
+);
 router.get('/musica/:id', publicacionId);
 router.post('/musica/', auth, agregarPublicacion);
 router.put('/musica/:id', auth, modificarPublicacion);

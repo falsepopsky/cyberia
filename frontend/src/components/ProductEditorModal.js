@@ -19,15 +19,21 @@ const ProductEditorModal = (props) => {
   // Traigo lista de Artistas
 
   const [artistCategory, setArtistCategory] = useState('');
-  const [artistas, setArtistas] = useState([{ id: '', nombre: 'Todas' }]);
+  const [artistas, setArtistas] = useState([{ id: '', nombre: '' }]);
 
   useEffect(() => {
-    fetch('http://localhost:8888/artistas')
-      .then((response) => response.json())
-      .then((dataArtistas) => {
-        setArtistas(dataArtistas);
-      });
+    getCategoriasArtistas();
+    getCategoriaSeries();
+    getCategoriasAudios();
+    getCategoriasGeneros();
   }, []);
+
+  const getCategoriasArtistas = async () => {
+    let urlArtistas = 'http://localhost:8888/api/categorias/artistas';
+    let response = await fetch(urlArtistas);
+    let dataArtistas = await response.json();
+    setArtistas(dataArtistas);
+  };
 
   const artistasOptions = () => {
     let artists = artistas.map((artista) => {
@@ -48,15 +54,14 @@ const ProductEditorModal = (props) => {
   // Traigo lista de Series
 
   const [seriesCategory, setSeriesCategory] = useState('');
-  const [series, setSeries] = useState([{ id: '', nombre: 'Todas' }]);
+  const [series, setSeries] = useState([{ id: '', nombre: '' }]);
 
-  useEffect(() => {
-    fetch('http://localhost:8888/series')
-      .then((response) => response.json())
-      .then((dataSeries) => {
-        setSeries(dataSeries);
-      });
-  }, []);
+  const getCategoriaSeries = async () => {
+    let urlSeries = 'http://localhost:8888/api/categorias/series';
+    let response = await fetch(urlSeries);
+    let dataSeries = await response.json();
+    setSeries(dataSeries);
+  };
 
   const seriesOptions = () => {
     let seres = series.map((serie) => {
@@ -77,15 +82,14 @@ const ProductEditorModal = (props) => {
   // Traigo lista de formatos de Audio
 
   const [audioCategory, setAudioCategory] = useState('');
-  const [audios, setAudios] = useState([{ id: '', nombre: 'Todas' }]);
+  const [audios, setAudios] = useState([{ id: '', nombre: '' }]);
 
-  useEffect(() => {
-    fetch('http://localhost:8888/formatosaudio')
-      .then((response) => response.json())
-      .then((dataAudios) => {
-        setAudios(dataAudios);
-      });
-  }, []);
+  const getCategoriasAudios = async () => {
+    let urlAudio = 'http://localhost:8888/api/categorias/formatosaudio';
+    let response = await fetch(urlAudio);
+    let dataAudios = await response.json();
+    setAudios(dataAudios);
+  };
 
   const audiosOptions = () => {
     let audio = audios.map((audio) => {
@@ -106,15 +110,14 @@ const ProductEditorModal = (props) => {
   // Traigo lista de generos musicales
 
   const [generoCategory, setGeneroCategory] = useState('');
-  const [generos, setGeneros] = useState([{ id: '', nombre: 'Todas' }]);
+  const [generos, setGeneros] = useState([{ id: '', nombre: '' }]);
 
-  useEffect(() => {
-    fetch('http://localhost:8888/generosmusicales')
-      .then((response) => response.json())
-      .then((dataGeneros) => {
-        setGeneros(dataGeneros);
-      });
-  }, []);
+  const getCategoriasGeneros = async () => {
+    let urlAudio = 'http://localhost:8888/api/categorias/generosmusicales';
+    let response = await fetch(urlAudio);
+    let dataGeneros = await response.json();
+    setGeneros(dataGeneros);
+  };
 
   const generosOptions = () => {
     let genre = generos.map((genero) => {
@@ -305,8 +308,7 @@ const ProductEditorModal = (props) => {
                   {seriesOptions()}
                 </Form.Control>
               </Form.Group>
-            </Col>
-            <Col>
+
               <Form.Group className="d-flex justify-content-center">
                 {previewCover && (
                   <img
@@ -320,11 +322,12 @@ const ProductEditorModal = (props) => {
                 <Form.Label>Cover</Form.Label>
                 <Form.Control type="file" onChange={handleCoverChange} />
               </Form.Group>
-
+            </Col>
+            <Col>
               <Form.Group>
                 <Form.Label>Tracklist </Form.Label>
                 <Form.Control
-                  type="text"
+                  as="textarea"
                   value={tracklist}
                   onChange={handleTracklistChange}
                 />
@@ -333,7 +336,7 @@ const ProductEditorModal = (props) => {
               <Form.Group>
                 <Form.Label>Descripcion </Form.Label>
                 <Form.Control
-                  type="text"
+                  as="textarea"
                   value={descripcion}
                   onChange={handleDescripChange}
                 />

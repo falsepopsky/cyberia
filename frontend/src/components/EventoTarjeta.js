@@ -6,16 +6,15 @@ import { Link } from 'react-router-dom';
 
 export default (props) => (
   <Col className="mb-5 text-center d-flex align-items-stretch justify-content-center">
-    <Card id="evento-tarjeta">
+    <Card className="bg-white rounded evento-tarjeta">
       <Card.Body>
-        <p id="name-day">{props.nombreDia}</p>
+        <p className="text-dark name-day">{props.nombreDia}</p>
         <Link to={'/eventsdetalle/' + props.id}>
-          <p id="day-month">{props.diaMes}</p>
+          <p className="day-month">{props.diaMes}</p>
         </Link>
         <img
-          id="imagen-evento"
           src={props.bannerEvento}
-          className="card-img-top"
+          className="card-img-top imagen-evento"
           alt="banner-evento"
         />
       </Card.Body>

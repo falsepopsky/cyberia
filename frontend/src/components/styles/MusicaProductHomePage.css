@@ -1,18 +1,18 @@
 #layer-nombre-album {
   margin-top: 2em;
-  font-family: "VarelaRound";
+  font-family: 'VarelaRound';
 }
 
 #layer-nombre-artista {
   margin-top: 1em;
-  font-family: "VarelaRound";
+  font-family: 'VarelaRound';
 }
 
 #layer-nombre-descripcion {
   margin-top: 2em;
-  font-family: "VarelaRound";
+  font-family: 'VarelaRound';
 }
 
-#btn-layer {
-  font-family: "VarelaRound";
+.btn-layer {
+  font-family: 'VarelaRound';
 }

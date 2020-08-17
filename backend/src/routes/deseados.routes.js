@@ -7,8 +7,8 @@ const {
   borrarWishlistRoutes,
 } = require('../controllers/deseados_controller');
 
-router.get('/wishlist/:user', obtenerWishlistRoutes);
-router.post('/wishlist/', agregarWishlistRoutes);
-router.delete('/wishlist/', borrarWishlistRoutes);
+router.get('/api/wishlist/:user', obtenerWishlistRoutes);
+router.post('/api/wishlist/', agregarWishlistRoutes);
+router.delete('/api/wishlist/', borrarWishlistRoutes);
 
 module.exports = router;

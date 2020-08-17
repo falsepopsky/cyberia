@@ -14,10 +14,11 @@ USE `cyberia_bd`;
 -- Estructura de tabla para la tabla `artistas`
 --
 
-CREATE TABLE `artistas` (
-  `artistas_id` int(15) NOT NULL,
-  `artistas_nombre` varchar(50) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+CREATE TABLE IF NO EXISTS artistas (
+  artistas_id INT(15) AUTO_INCREMENT,
+  artistas_nombre VARCHAR(50) NOT NULL UNIQUE,
+  PRIMARY KEY (artistas_id),
+)
 
 ----------------------------------------------------------
 
@@ -25,11 +26,12 @@ CREATE TABLE `artistas` (
 -- Estructura de tabla para la tabla `checkout`
 --
 
-CREATE TABLE `checkout` (
-  `check_usr_id` int(10) NOT NULL,
-  `check_pm_id` int(15) NOT NULL,
-  `check_total` int(11) NOT NULL
-) 
+CREATE TABLE IF NO EXISTS checkout (
+  check_usr_id int(10) AUTO_INCREMENT,
+  check_pm_id int(15) NOT NULL,
+  check_total int(11) NOT NULL,
+  PRIMARY KEY (check_usr_id),
+)
 
 ----------------------------------------------------------
 
@@ -37,51 +39,43 @@ CREATE TABLE `checkout` (
 -- Estructura de tabla para la tabla `eventos`
 --
 
-CREATE TABLE `eventos` (
-  `evento_id` int(15) NOT NULL,
-  `evento_nombre` tinytext NOT NULL,
-  `evento_banner` varchar(50) NOT NULL,
-  `evento_fecha` date NOT NULL,
-  `evento_apertura` time NOT NULL,
-  `evento_cierre` time NOT NULL,
-  `evento_precio_puerta` decimal(10,0) NOT NULL,
-  `evento_precio_advance` decimal(10,0) NOT NULL,
-  `evento_lineup` text NOT NULL,
-  `evento_descripcion` text NOT NULL,
-  `evento_genero` varchar(50) NOT NULL
+CREATE TABLE IF NO EXISTS eventos (
+  evento_id INT(15) NOT NULL,
+  evento_nombre TINYTEXT NOT NULL,
+  evento_banner VARCHAR(50) NOT NULL,
+  evento_fecha DATE NOT NULL,
+  evento_apertura TIME NOT NULL,
+  evento_cierre TIME NOT NULL,
+  evento_precio_puerta decimal(10,0) NOT NULL,
+  evento_precio_advance decimal(10,0) NOT NULL,
+  evento_lineup TEXT NOT NULL,
+  evento_descripcion TEXT NOT NULL,
+  evento_genero VARCHAR(50) NOT NULL,
+  PRIMARY KEY (evento_id),
 )
 
-----------------------------------------------------------
+------------------- Estructura de tabla para la tabla 'formatos_audio' ------------
 
---
--- Estructura de tabla para la tabla `formatos_audio`
---
-
-CREATE TABLE `formatos_audio` (
-  `fa_id` tinyint(5) NOT NULL,
-  `fa_nombre` char(20) NOT NULL
+CREATE TABLE IF NO EXISTS formatos_audio (
+  fa_id tinyint(5) NOT NULL,
+  fa_nombre char(20) NOT NULL,
+  PRIMARY KEY (fa_id),
 )
 
---------------------------------------------------------
+------------------- Estructura de tabla para la tabla 'generos_musicales' ------------
 
---
--- Estructura de tabla para la tabla `generos_musicales`
---
-
-CREATE TABLE `generos_musicales` (
-  `gnr_id` tinyint(5) NOT NULL,
-  `gnr_nombre` varchar(30) NOT NULL
+CREATE TABLE IF NO EXISTS generos_musicales (
+  gnr_id TINYINT(5) NOT NULL,
+  gnr_nombre VARCHAR(30) NOT NULL,
+  PRIMARY KEY (gnr_id)
 )
 
-----------------------------------------------------------
+------------------- Estructura de tabla para la tabla 'lista_deseados' ------------
 
---
--- Estructura de tabla para la tabla `lista_deseados`
---
-
-CREATE TABLE `lista_deseados` (
-  `ld_usr_id` int(10) NOT NULL,
-  `ld_pm_id` int(15) NOT NULL
+CREATE TABLE IF NO EXISTS lista_deseados (
+  ld_usr_id INT(10) NOT NULL,
+  ld_pm_id INT(15) NOT NULL,
+  PRIMARY KEY (ld_usr_id, ld_pm_id)
 )
 
 --

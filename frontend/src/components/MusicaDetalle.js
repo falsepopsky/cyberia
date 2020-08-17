@@ -24,9 +24,9 @@ export default () => {
 
   useEffect(() => {
     async function getMusicDetail() {
-      let response = await fetch(
-        'http://localhost:8888/musica/publicacionmusica/' + id
-      );
+      const API_MUSIC_DETAIL_ROUTE =
+        'http://localhost:8888/api/musica/publicacionmusica/';
+      let response = await fetch(`${API_MUSIC_DETAIL_ROUTE}${id}`);
       let data = await response.json();
       setPublicacion(data);
     }
@@ -45,7 +45,7 @@ export default () => {
           >
             <img
               src={publicacion.cover}
-              alt="cover-album"
+              alt={publicacion.nombreAlbum}
               className="img-fluid mt-4"
             />
           </Col>
@@ -59,56 +59,61 @@ export default () => {
             <h3 id="album-name">{publicacion.nombreAlbum}</h3>
 
             <h2 id="release-details">RELEASE DETAILS</h2>
+            <Row>
+              <Col xs={12}>
+                <p id="catalog">
+                  <FontAwesomeIcon
+                    color="black"
+                    icon={faHashtag}
+                    transform="left-4"
+                  />
+                  {publicacion.catalog}
+                </p>
+                <p id="release-date">
+                  <FontAwesomeIcon
+                    color="black"
+                    icon={faCalendarAlt}
+                    transform="left-4"
+                  />
+                  {moment(publicacion.fechaLanzamiento).format('MMM Do YYYY')}
+                </p>
+                <p id="series">
+                  <FontAwesomeIcon
+                    color="black"
+                    icon={faClone}
+                    transform="left-4"
+                  />
+                  {publicacion.series}
+                </p>
+              </Col>
+              <Col xs={12}>
+                <p id="style">
+                  <FontAwesomeIcon
+                    color="black"
+                    icon={faMusic}
+                    transform="left-4"
+                  />
+                  {publicacion.genero}
+                </p>
+                <p id="audio">
+                  <FontAwesomeIcon
+                    color="black"
+                    icon={faFileAudio}
+                    transform="left-4"
+                  />
+                  {publicacion.audio}
+                </p>
+                <p id="price">
+                  <FontAwesomeIcon
+                    color="black"
+                    icon={faDollarSign}
+                    transform="left-4"
+                  />
+                  {publicacion.precio} ARS
+                </p>
+              </Col>
+            </Row>
 
-            <p id="catalog">
-              <FontAwesomeIcon
-                color="black"
-                icon={faHashtag}
-                transform="left-4"
-              />
-              {publicacion.catalog}
-            </p>
-            <p id="release-date">
-              <FontAwesomeIcon
-                color="black"
-                icon={faCalendarAlt}
-                transform="left-4"
-              />
-              {moment(publicacion.fechaLanzamiento).format('MMM Do YYYY')}
-            </p>
-            <p id="series">
-              <FontAwesomeIcon
-                color="black"
-                icon={faClone}
-                transform="left-4"
-              />
-              {publicacion.series}
-            </p>
-            <p id="style">
-              <FontAwesomeIcon
-                color="black"
-                icon={faMusic}
-                transform="left-4"
-              />
-              {publicacion.genero}
-            </p>
-            <p id="audio">
-              <FontAwesomeIcon
-                color="black"
-                icon={faFileAudio}
-                transform="left-4"
-              />
-              {publicacion.audio}
-            </p>
-            <p id="price">
-              <FontAwesomeIcon
-                color="black"
-                icon={faDollarSign}
-                transform="left-4"
-              />
-              {publicacion.precio} ARS
-            </p>
-            <br></br>
             <Button style={{ margin: '1em' }} variant="info">
               <FontAwesomeIcon color="white" icon={faHeart} /> Wishlist
             </Button>
