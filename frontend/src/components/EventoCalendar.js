@@ -5,30 +5,39 @@ import { Calendar, momentLocalizer } from 'react-big-calendar';
 import moment from 'moment';
 import 'react-big-calendar/lib/css/react-big-calendar.css';
 
-const localizer = momentLocalizer(moment);
+const EventsCalendar = () => {
+  const localizer = momentLocalizer(moment);
+  require('moment/locale/en-gb');
 
-require('moment/locale/en-gb');
-
-export default (props) => {
-  const [publicaciones, setPublicaciones] = useState([]);
+  const [eventos, setEventos] = useState([]);
 
   useEffect(() => {
     async function getEventsForCalendar() {
-      let calendarRoute = 'http://localhost:8888/api/calendario';
-      let response = await fetch(calendarRoute);
+      const API_URL_EVENTOS_CALENDARIO = 'http://localhost:8888/api/calendario';
+      let response = await fetch(API_URL_EVENTOS_CALENDARIO);
       let data = await response.json();
-      setPublicaciones(data);
+      setEventos(data);
     }
     getEventsForCalendar();
   }, []);
+
+  const styleEvents = () => {
+    const style = {
+      backgroundColor: '#367CF7',
+      color: 'white',
+    };
+    return {
+      style,
+    };
+  };
 
   return (
     <Row>
       <Col className="d-flex justify-content-center m-4">
         <Calendar
-          popup
           localizer={localizer}
-          events={publicaciones}
+          events={eventos}
+          eventPropGetter={styleEvents}
           views={{ month: true, agenda: true }}
           style={{ width: '75vw', height: '85vh' }}
           onDoubleClickEvent={(event) => console.log(event.id)}
@@ -37,3 +46,5 @@ export default (props) => {
     </Row>
   );
 };
+
+export default EventsCalendar;

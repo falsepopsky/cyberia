@@ -6,7 +6,7 @@ const session = require('express-session');
 const FileStore = require('session-file-store')(session);
 require('dotenv').config();
 
-const port = process.env.BASE_PORT;
+const port = process.env.BASE_PORT || 8000;
 
 // Iniciacion
 
@@ -45,6 +45,7 @@ app.use(
 // routes
 
 app.use(require('./routes/session.routes'));
+app.use(require('./routes/contacto.routes'));
 app.use(require('./routes/categorias.routes'));
 app.use(require('./routes/publicaciones.musica.routes'));
 app.use(require('./routes/publicaciones.evento.routes'));

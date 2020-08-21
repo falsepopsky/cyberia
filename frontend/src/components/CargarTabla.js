@@ -35,13 +35,13 @@ const ListadoTabla = (props) => {
     });
   };
 
-  const cargarListadoProductos = () => {
-    let endpoint = 'musica/listamusicaroutes';
-    fetch(`http://localhost:8888/${endpoint}`)
-      .then((response) => response.json())
-      .then((data) => {
-        setPublicaciones(data);
-      });
+  const cargarListadoProductos = async () => {
+    const API_ROUTE_GET_MUSICA =
+      'http://localhost:8888/api/musica/listamusicaroutes';
+    let response = await fetch(API_ROUTE_GET_MUSICA);
+    let data = await response.json();
+
+    setPublicaciones(data);
   };
 
   useEffect(cargarListadoProductos, []);
@@ -61,7 +61,7 @@ const ListadoTabla = (props) => {
       scrollbarPadding: false,
     }).then((result) => {
       if (result.value) {
-        fetch(`http://localhost:8888/musica/${id}`, {
+        fetch(`http://localhost:8888/api/musica/${id}`, {
           method: 'DELETE',
           credentials: 'include',
         })

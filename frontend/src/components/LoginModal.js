@@ -10,7 +10,7 @@ import Swal from 'sweetalert2';
 
 const LoginModal = (props) => {
   const handleLoginClick = async function logIn() {
-    let url = 'http://localhost:8888/auth';
+    let url = 'http://localhost:8888/api/auth';
     let params = {
       user: nombreUsuario,
       password: password,

@@ -3,8 +3,12 @@
   box-shadow: 0px 4px 18px 0px #000;
 }
 
+.nav-link {
+  outline: none;
+}
+
 #barra-de-navegacion .nav-link:not(#btn-logged-user) {
-  font-family: "VarelaRound";
+  font-family: 'VarelaRound';
   color: white;
 }
 
@@ -12,18 +16,12 @@
   color: #aaa590;
 }
 
-#basic-navbar-nav {
-  text-align: center;
-}
-
 #btn-sign-up {
-  font-family: "VarelaRound";
+  font-family: 'VarelaRound';
   color: #fff;
   background-color: #000;
   border: 3px solid;
   border-color: #fff;
-  padding-top: 0px;
-  padding-bottom: 0px;
   margin: 1px 1em 1px 1em;
 }
 
@@ -32,13 +30,11 @@
 }
 
 #btn-login {
-  font-family: "VarelaRound";
+  font-family: 'VarelaRound';
   color: #000;
   background-color: #fff;
   border: 3px solid;
   border-color: #fffefe;
-  padding-top: 0px;
-  padding-bottom: 0px;
   margin: 1px 1em 1px 1em;
 }
 
@@ -48,7 +44,7 @@
 }
 
 #btn-logged-user {
-  font-family: "VarelaRound";
+  font-family: 'VarelaRound';
   color: #000;
   background-color: #fff;
   border: 3px solid;

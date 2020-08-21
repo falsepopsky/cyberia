@@ -31,32 +31,31 @@ function App() {
     }
   };
 
-  const onLogout = () => {
-    let url = 'http://localhost:8888/auth';
+  const onLogout = async () => {
+    let url = 'http://localhost:8888/api/auth';
 
-    fetch(url, {
+    let response = await fetch(url, {
       method: 'DELETE',
       credentials: 'include',
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        if (data.status === 'ok') {
-          Swal.fire({
-            text: data.message,
-            icon: 'success',
-            scrollbarPadding: false,
-          });
-          setUsuario(null);
-          setAdmin(false);
-        } else {
-          Swal.fire({
-            title: 'Error!',
-            text: data.message,
-            icon: 'error',
-            scrollbarPadding: false,
-          });
-        }
+    });
+    let data = await response.json();
+
+    if (data.status === 'ok') {
+      Swal.fire({
+        text: data.message,
+        icon: 'success',
+        scrollbarPadding: false,
       });
+      setUsuario(null);
+      setAdmin(false);
+    } else {
+      Swal.fire({
+        title: 'Error!',
+        text: data.message,
+        icon: 'error',
+        scrollbarPadding: false,
+      });
+    }
   };
 
   return (

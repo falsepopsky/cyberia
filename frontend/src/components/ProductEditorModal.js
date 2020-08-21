@@ -29,8 +29,9 @@ const ProductEditorModal = (props) => {
   }, []);
 
   const getCategoriasArtistas = async () => {
-    let urlArtistas = 'http://localhost:8888/api/categorias/artistas';
-    let response = await fetch(urlArtistas);
+    const URL_API_CATEGORIA_ARTISTAS =
+      'http://localhost:8888/api/categorias/artistas';
+    let response = await fetch(URL_API_CATEGORIA_ARTISTAS);
     let dataArtistas = await response.json();
     setArtistas(dataArtistas);
   };
@@ -57,8 +58,9 @@ const ProductEditorModal = (props) => {
   const [series, setSeries] = useState([{ id: '', nombre: '' }]);
 
   const getCategoriaSeries = async () => {
-    let urlSeries = 'http://localhost:8888/api/categorias/series';
-    let response = await fetch(urlSeries);
+    const URL_API_CATEGORIA_SERIES =
+      'http://localhost:8888/api/categorias/series';
+    let response = await fetch(URL_API_CATEGORIA_SERIES);
     let dataSeries = await response.json();
     setSeries(dataSeries);
   };
@@ -85,8 +87,9 @@ const ProductEditorModal = (props) => {
   const [audios, setAudios] = useState([{ id: '', nombre: '' }]);
 
   const getCategoriasAudios = async () => {
-    let urlAudio = 'http://localhost:8888/api/categorias/formatosaudio';
-    let response = await fetch(urlAudio);
+    const URL_API_CATEGORIA_AUDIOS =
+      'http://localhost:8888/api/categorias/formatosaudio';
+    let response = await fetch(URL_API_CATEGORIA_AUDIOS);
     let dataAudios = await response.json();
     setAudios(dataAudios);
   };
@@ -113,8 +116,9 @@ const ProductEditorModal = (props) => {
   const [generos, setGeneros] = useState([{ id: '', nombre: '' }]);
 
   const getCategoriasGeneros = async () => {
-    let urlAudio = 'http://localhost:8888/api/categorias/generosmusicales';
-    let response = await fetch(urlAudio);
+    const URL_API_CATEGORIA_GENEROS =
+      'http://localhost:8888/api/categorias/generosmusicales';
+    let response = await fetch(URL_API_CATEGORIA_GENEROS);
     let dataGeneros = await response.json();
     setGeneros(dataGeneros);
   };
@@ -181,7 +185,7 @@ const ProductEditorModal = (props) => {
     formData.append('audioCategory', audioCategory);
     formData.append('generoCategory', generoCategory);
 
-    let url = 'http://localhost:8888/musica';
+    let url = 'http://localhost:8888/api/musica';
 
     let method = 'POST';
 
@@ -213,7 +217,7 @@ const ProductEditorModal = (props) => {
 
   useEffect(() => {
     if (props.idProducto) {
-      fetch('http://localhost:8888/musica/' + props.idProducto)
+      fetch('http://localhost:8888/api/musica/' + props.idProducto)
         .then((response) => response.json())
         .then((data) => {
           setArtistCategory(data.artistCategory);

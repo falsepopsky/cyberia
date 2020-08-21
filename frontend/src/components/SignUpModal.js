@@ -24,14 +24,14 @@ const SignUpModal = (props) => {
   };
 
   const handleSave = async function SignUp() {
-    let url = 'http://localhost:8888/auth/signup';
+    const API_URL_SIGNUP = 'http://localhost:8888/api/auth/signup';
     const formData = new FormData();
 
     formData.append('nombreUsuario', nombreUsuario);
     formData.append('email', email);
     formData.append('password', password);
 
-    let response = await fetch(url, {
+    let response = await fetch(API_URL_SIGNUP, {
       method: 'POST',
       body: formData,
       credentials: 'include',

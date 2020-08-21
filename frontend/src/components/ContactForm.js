@@ -6,32 +6,21 @@ import Button from 'react-bootstrap/Button';
 import Swal from 'sweetalert2';
 
 const ContactForm = () => {
-  const [contactName, setContactName] = useState('');
-  const [contactEmail, setContactEmail] = useState('');
-  const [contactMessage, setContactMessage] = useState('');
+  const [values, setValues] = useState({ name: '', email: '', message: '' });
 
-  const handleContactName = (event) => {
-    setContactName(event.target.value);
+  const handleChange = (name) => (event) => {
+    setValues({ ...values, [name]: event.target.value });
   };
 
-  const handleContactEmail = (event) => {
-    setContactEmail(event.target.value);
-  };
-
-  const handleContactMessage = (event) => {
-    setContactMessage(event.target.value);
-  };
-
-  const handleSubmit = async function () {
+  const handleSubmit = async () => {
     const formData = new FormData();
-    let url = 'http://localhost:8888/api/contact/';
+    const API_URL_CONTACT = 'http://localhost:8888/api/contacto';
 
-    formData.append('contactName', contactName);
-    formData.append('contactEmail', contactEmail);
-    formData.append('contactMessage', contactMessage);
-    console.log(formData);
+    formData.append('name', values.name);
+    formData.append('email', values.email);
+    formData.append('message', values.message);
 
-    let response = await fetch(url, {
+    let response = await fetch(API_URL_CONTACT, {
       method: 'POST',
       body: formData,
       credentials: 'include',
@@ -44,6 +33,7 @@ const ContactForm = () => {
         icon: 'success',
         scrollbarPadding: false,
       });
+      setValues({ name: '', email: '', message: '' });
     } else {
       Swal.fire({
         title: 'Error!',
@@ -62,8 +52,8 @@ const ContactForm = () => {
             <Form.Label>Name</Form.Label>
             <Form.Control
               type="text"
-              value={contactName}
-              onChange={handleContactName}
+              value={values.name}
+              onChange={handleChange('name')}
             />
           </Form.Group>
 
@@ -71,8 +61,8 @@ const ContactForm = () => {
             <Form.Label>Email</Form.Label>
             <Form.Control
               type="email"
-              value={contactEmail}
-              onChange={handleContactEmail}
+              value={values.email}
+              onChange={handleChange('email')}
             />
           </Form.Group>
 
@@ -80,8 +70,8 @@ const ContactForm = () => {
             <Form.Label>Message</Form.Label>
             <Form.Control
               as="textarea"
-              value={contactMessage}
-              onChange={handleContactMessage}
+              value={values.message}
+              onChange={handleChange('message')}
             />
           </Form.Group>
 

@@ -6,7 +6,7 @@ const imagesURL = process.env.IMAGES_URL;
 
 publicacionesMusicaCtrl.publicacionesMusica = (req, res) => {
   let sqlSelect = `SELECT pm_nombre_artista AS artistCategory, pm_nombre_album AS nombreAlbum, pm_catalogo AS catalog, pm_fecha_lanzamiento AS fechaLanzamiento, pm_series AS series, pm_cover AS cover, pm_tracklist AS tracklist, pm_descripcion AS descripcion, pm_precio AS precio, pm_audio AS audio, pm_genero AS genero
-    FROM producto_musica`;
+    FROM publicaciones_musica`;
 
   conexion.query(sqlSelect, function (err, result, fields) {
     if (err) {
@@ -22,7 +22,7 @@ publicacionesMusicaCtrl.publicacionesMusica = (req, res) => {
 
 publicacionesMusicaCtrl.publicacionesMusicaTarjeta = (req, res) => {
   let sql = `SELECT pm_id as id, artistas_nombre as nombreArtista, pm_nombre_album as nombreAlbum, pm_cover as cover 
-   FROM producto_musica
+   FROM publicaciones_musica
    INNER JOIN 
    artistas ON pm_nombre_artista = artistas_id`;
 
@@ -40,7 +40,7 @@ publicacionesMusicaCtrl.publicacionesMusicaTarjeta = (req, res) => {
 
 publicacionesMusicaCtrl.publicacionFormateadaPorId = (req, res) => {
   let sql = `SELECT pm_id AS id, artistas_nombre AS nombreArtista, pm_nombre_album AS nombreAlbum, pm_cover as cover, pm_catalogo AS catalog, pm_fecha_lanzamiento AS fechaLanzamiento, series_nombre AS series, gnr_nombre AS genero, fa_nombre AS audio, pm_precio AS precio, pm_descripcion AS descripcion, pm_tracklist AS tracklist
-    FROM producto_musica
+    FROM publicaciones_musica
     INNER JOIN 
     artistas ON  pm_nombre_artista = artistas_id
     INNER JOIN
@@ -64,7 +64,7 @@ publicacionesMusicaCtrl.publicacionFormateadaPorId = (req, res) => {
 
 publicacionesMusicaCtrl.publicacionLayer = (req, res) => {
   let sql = `SELECT pm_id AS id, pm_cover as cover, artistas_nombre AS nombreArtista, pm_nombre_album AS nombreAlbum, pm_descripcion AS descripcion
-  FROM producto_musica
+  FROM publicaciones_musica
   INNER JOIN 
   artistas ON  pm_nombre_artista = artistas_id
   WHERE pm_series = 1
@@ -83,7 +83,7 @@ publicacionesMusicaCtrl.publicacionLayer = (req, res) => {
 
 publicacionesMusicaCtrl.ultimasCuatroPublicaciones = (req, res) => {
   let sql = `SELECT pm_id as id, artistas_nombre as nombreArtista, pm_nombre_album as nombreAlbum, pm_cover as cover 
-  FROM producto_musica
+  FROM publicaciones_musica
   INNER JOIN 
   artistas ON pm_nombre_artista = artistas_id
   ORDER BY pm_id DESC LIMIT 4`;
@@ -102,7 +102,7 @@ publicacionesMusicaCtrl.ultimasCuatroPublicaciones = (req, res) => {
 
 publicacionesMusicaCtrl.publicacionId = (req, res) => {
   let sql = `SELECT pm_nombre_artista AS artistCategory, pm_nombre_album AS nombreAlbum, pm_catalogo AS catalog, pm_fecha_lanzamiento AS fechaLanzamiento, pm_series AS series, pm_cover AS cover, pm_tracklist AS tracklist, pm_descripcion AS descripcion, pm_precio AS precio, pm_audio AS audio, pm_genero AS genero
-    FROM producto_musica
+    FROM publicaciones_musica
     WHERE pm_id = ${req.params.id}`;
   conexion.query(sql, function (err, result, fields) {
     if (err) {
@@ -132,10 +132,11 @@ publicacionesMusicaCtrl.agregarPublicacion = (req, res) => {
     console.log('No hay archivo');
   }
 
-  let sqlInsert = `INSERT INTO producto_musica(pm_nombre_artista, pm_nombre_album, pm_catalogo, pm_fecha_lanzamiento, pm_series, pm_cover, pm_tracklist, pm_descripcion, pm_precio, pm_audio, pm_genero)
-                   VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`;
+  let sqlInsert = `INSERT INTO publicaciones_musica(pm_usr_id, pm_nombre_artista, pm_nombre_album, pm_catalogo, pm_fecha_lanzamiento, pm_series, pm_cover, pm_tracklist, pm_descripcion, pm_precio, pm_audio, pm_genero)
+                   VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`;
 
   const insertValues = [
+    req.session.userId,
     req.body.artistCategory,
     req.body.nombreAlbum,
     req.body.catalog,
@@ -150,12 +151,12 @@ publicacionesMusicaCtrl.agregarPublicacion = (req, res) => {
   ];
   conexion.query(sqlInsert, insertValues, function (err, result, fields) {
     if (err) {
-      res.json({
+      res.status(404).json({
         status: 'error',
         message: 'Error al realizar la publicación',
       });
     } else {
-      res.json({
+      res.status(200).json({
         status: 'ok',
         message: 'Publicación realizada correctamente',
       });
@@ -166,7 +167,7 @@ publicacionesMusicaCtrl.agregarPublicacion = (req, res) => {
 publicacionesMusicaCtrl.modificarPublicacion = (req, res) => {
   let imageFileName = '';
 
-  let sqlUpdate = `UPDATE producto_musica
+  let sqlUpdate = `UPDATE publicaciones_musica
                         SET pm_nombre_artista = ?,
                             pm_nombre_album = ?,
                             pm_catalogo = ?,
@@ -196,7 +197,7 @@ publicacionesMusicaCtrl.modificarPublicacion = (req, res) => {
   if (req.files) {
     //Borro el archivo de la imagen anterior
     conexion.query(
-      `SELECT pm_cover FROM producto_musica WHERE pm_id = ${req.params.id}`,
+      `SELECT pm_cover FROM publicaciones_musica WHERE pm_id = ${req.params.id}`,
       function (err, result, fields) {
         if (err) {
           console.log('Error');
@@ -234,12 +235,12 @@ publicacionesMusicaCtrl.modificarPublicacion = (req, res) => {
 
   conexion.query(sqlUpdate, values, function (err, result, fields) {
     if (err) {
-      res.json({
+      res.status(404).json({
         status: 'error',
         message: 'Error al modificar la publicación',
       });
     } else {
-      res.json({
+      res.status(201).json({
         status: 'ok',
         message: 'Publicación modificada correctamente',
       });
@@ -248,7 +249,7 @@ publicacionesMusicaCtrl.modificarPublicacion = (req, res) => {
 };
 
 publicacionesMusicaCtrl.borrarPublicacion = (req, res) => {
-  let sqlDelete = `DELETE FROM producto_musica WHERE pm_id = ?`;
+  let sqlDelete = `DELETE FROM publicaciones_musica WHERE pm_id = ?`;
 
   const values = req.params.id;
 
@@ -259,7 +260,7 @@ publicacionesMusicaCtrl.borrarPublicacion = (req, res) => {
         message: 'Error al eliminar la publicación',
       });
     } else {
-      res.json({
+      res.status(200).json({
         status: 'ok',
         message: 'La publicacion ha sido eliminada correctamente',
       });

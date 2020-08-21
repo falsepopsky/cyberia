@@ -7,8 +7,8 @@ const {
   destroySession,
 } = require('../controllers/session_controller');
 
-router.post('/auth/', logIn);
-router.post('/auth/signup/', signUp);
-router.delete('/auth/', destroySession);
+router.post('/api/auth', logIn);
+router.post('/api/auth/signup', signUp);
+router.delete('/api/auth', destroySession);
 
 module.exports = router;

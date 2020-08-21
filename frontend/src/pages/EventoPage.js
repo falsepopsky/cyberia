@@ -5,14 +5,12 @@ import EventoCalendar from '../components/EventoCalendar';
 
 const Evento = () => {
   return (
-    <>
-      <Row className="text-center">
-        <Col>
-          <h2 style={{ marginTop: '1em', marginBottom: '2em' }}>EVENTS</h2>
-          <EventoCalendar />
-        </Col>
-      </Row>
-    </>
+    <Row className="text-center">
+      <Col>
+        <h2 className="my-5">EVENTS</h2>
+        <EventoCalendar />
+      </Col>
+    </Row>
   );
 };
 

@@ -10,7 +10,7 @@ sessionCtrl.logIn = (req, res) => {
 
   conexion.query(sql, value, async (err, result, fields) => {
     if (err) {
-      res.json({
+      res.status(500).json({
         status: 'error',
         message:
           'No es posible acceder en este momento. Intente nuevamente en unos minutos.',
@@ -23,14 +23,14 @@ sessionCtrl.logIn = (req, res) => {
         );
 
         if (password) {
-          req.session.user = req.body.user;
+          req.session.user = result[0].usr_nombre;
           req.session.userId = result[0].usr_id;
           res.json({
             status: 'ok',
             message: 'sesión iniciada',
             loggedUser: {
               id: req.session.userId,
-              nombre: result[0].usr_nombre,
+              nombre: req.session.user,
             },
           });
         }

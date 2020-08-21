@@ -36,7 +36,7 @@ const NavigationBar = (props) => {
           <img src={Logo} alt="logo-cyberia" />
         </Link>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
-        <Navbar.Collapse id="basic-navbar-nav">
+        <Navbar.Collapse className="text-center">
           <Nav className="ml-auto">
             {props.admin === true ? (
               <Link
@@ -58,11 +58,19 @@ const NavigationBar = (props) => {
             </Link>
             {!props.user ? (
               <>
-                <Button id="btn-sign-up" onClick={handleShowSignUpModal}>
+                <Button
+                  id="btn-sign-up"
+                  className="py-0"
+                  onClick={handleShowSignUpModal}
+                >
                   Sign Up
                 </Button>
 
-                <Button id="btn-login" onClick={handleShowLoginModal}>
+                <Button
+                  id="btn-login"
+                  className="py-0"
+                  onClick={handleShowLoginModal}
+                >
                   Login
                 </Button>
               </>
@@ -72,7 +80,7 @@ const NavigationBar = (props) => {
                   id="btn-logged-user"
                   alignRight
                   title={props.user.nombre}
-                  className="btn btn-sm d-inline-block"
+                  className="btn d-inline-block"
                 >
                   <NavDropdown.Item>My Account</NavDropdown.Item>
                   <NavDropdown.Divider />

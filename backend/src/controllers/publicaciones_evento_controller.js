@@ -163,12 +163,12 @@ eventosCtrl.borrarPublicacionEvento = (req, res) => {
 
   conexion.query(sqlDelete, valueId, function (err, result, fields) {
     if (err) {
-      res.json({
+      res.status(404).json({
         status: 'error',
         message: 'Error al eliminar el evento',
       });
     } else {
-      res.json({
+      res.status(200).json({
         status: 'ok',
         message: 'El Evento ha sido eliminado correctamente',
       });

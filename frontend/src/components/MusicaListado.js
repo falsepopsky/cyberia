@@ -7,9 +7,9 @@ const ListadoMusica = () => {
 
   useEffect(() => {
     async function getMusicPubs() {
-      let response = await fetch(
-        'http://localhost:8888/musica/listamusicaroutes'
-      );
+      const URL_API_PUBLICACIONES_MUSICA =
+        'http://localhost:8888/api/musica/listamusicaroutes';
+      let response = await fetch(URL_API_PUBLICACIONES_MUSICA);
       let data = await response.json();
       setPublicaciones(data);
     }
