@@ -9,6 +9,6 @@ const {
 
 router.get('/api/wishlist/:user', obtenerWishlistRoutes);
 router.post('/api/wishlist/', agregarWishlistRoutes);
-router.delete('/api/wishlist/', borrarWishlistRoutes);
+router.delete('/api/wishlist/:id', borrarWishlistRoutes);
 
 module.exports = router;

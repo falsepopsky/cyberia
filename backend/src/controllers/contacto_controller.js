@@ -43,7 +43,7 @@ ctrlContacto.borrarMensajeDeContacto = (req, res) => {
     fields
   ) {
     if (err) {
-      res.json({
+      res.status(404).json({
         status: 'error',
         message: 'Error al borrar el contacto',
       });

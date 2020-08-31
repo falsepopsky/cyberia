@@ -8,15 +8,12 @@ deseadosCtrl.obtenerWishlistRoutes = (req, res) => {
   let values = [req.params.userId];
   conexion.query(sqlSelect, values, (err, result, fields) => {
     if (err) {
-      res.json({
+      res.status(200).json({
         status: 'error',
         message: 'Error al obtener favoritos',
       });
     } else {
-      res.json({
-        status: 'ok',
-        result: result,
-      });
+      res.status(200).json(result);
     }
   });
 };
@@ -45,12 +42,12 @@ deseadosCtrl.borrarWishlistRoutes = (req, res) => {
   let values = [req.body.userId, req.body.id];
   conexion.query(sqlDelete, values, (err, result, fields) => {
     if (err) {
-      res.json({
+      res.status(404).json({
         status: 'error',
         message: 'Error al eliminar de la lista de deseados',
       });
     } else {
-      res.json({
+      res.status(200).json({
         status: 'ok',
         message: 'Eliminado de la lista de deseados',
       });
