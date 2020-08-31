@@ -8,8 +8,8 @@ import StorePage from './pages/storepage';
 import AdminPanel from './pages/adminpanel';
 import About from './pages/about';
 import EventoPage from './pages/eventopage';
-import EventoDetalle from './components/EventoDetalle';
-import MusicaDetalle from './components/MusicaDetalle';
+import EventoDetalle from './pages/eventdetail';
+import MusicaDetalle from './pages/musicdetail';
 import CargarTabla from './components/CargarTabla';
 import Swal from 'sweetalert2';
 
@@ -24,9 +24,9 @@ function App() {
   const [usuario, setUsuario] = useState(null);
   const [admin, setAdmin] = useState(false);
 
-  const onLoginSuccess = (loggedUser) => {
-    setUsuario(loggedUser);
-    if (loggedUser.nombre === 'admin') {
+  const onLoginSuccess = (usuarioLogueado) => {
+    setUsuario(usuarioLogueado);
+    if (usuarioLogueado.admin === 0) {
       setAdmin(true);
     }
   };
@@ -70,10 +70,10 @@ function App() {
         <Switch>
           <Route exact path="/" children={<HomePage />} />
           <Route exact path="/store" children={<StorePage />} />
-          <Route exact path="/musicdetalle/:id" children={<MusicaDetalle />} />
+          <Route exact path="/musicdetail/:id" children={<MusicaDetalle />} />
 
           <Route exact path="/events" children={<EventoPage />} />
-          <Route exact path="/eventsdetalle/:id" children={<EventoDetalle />} />
+          <Route exact path="/eventsdetail/:id" children={<EventoDetalle />} />
 
           <Route exact path="/about" children={<About />} />
 

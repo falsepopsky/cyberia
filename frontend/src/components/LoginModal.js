@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Modal from 'react-bootstrap/Modal';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
@@ -9,11 +9,17 @@ import { faUser, faLock } from '@fortawesome/free-solid-svg-icons';
 import Swal from 'sweetalert2';
 
 const LoginModal = (props) => {
+  const [values, setValues] = useState({ user: '', password: '' });
+
+  const handleChange = (name) => (event) => {
+    setValues({ ...values, [name]: event.target.value });
+  };
+
   const handleLoginClick = async function logIn() {
     let url = 'http://localhost:8888/api/auth';
     let params = {
-      user: nombreUsuario,
-      password: password,
+      user: values.user,
+      password: values.password,
     };
 
     let response = await fetch(url, {
@@ -27,7 +33,7 @@ const LoginModal = (props) => {
 
     let data = await response.json();
     if (data.status === 'ok') {
-      props.handleLoginSuccess(data.loggedUser);
+      props.handleLoginSuccess(data.usuarioLogueado);
       props.handleHide();
     } else {
       Swal.fire({
@@ -37,17 +43,6 @@ const LoginModal = (props) => {
         scrollbarPadding: false,
       });
     }
-  };
-
-  const [nombreUsuario, setNombreUsuario] = useState('');
-  const [password, setPassword] = useState('');
-
-  const handleUserNameChange = (event) => {
-    setNombreUsuario(event.target.value);
-  };
-
-  const handlePasswordChange = (event) => {
-    setPassword(event.target.value);
   };
 
   return (
@@ -64,8 +59,8 @@ const LoginModal = (props) => {
           <Col sm={9}>
             <Form.Control
               type="text"
-              value={nombreUsuario}
-              onChange={handleUserNameChange}
+              value={values.user}
+              onChange={handleChange('nombreUsuario')}
               maxLength="13"
             />
           </Col>
@@ -77,8 +72,8 @@ const LoginModal = (props) => {
           <Col sm={9}>
             <Form.Control
               type="password"
-              value={password}
-              onChange={handlePasswordChange}
+              value={values.password}
+              onChange={handleChange('password')}
               minLength="5"
               maxLength="15"
             />

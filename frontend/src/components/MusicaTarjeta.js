@@ -25,7 +25,7 @@ export default (props) => (
         <p className="text-dark nombre-artista-tarjeta">
           {props.nombreArtista}
         </p>
-        <Link to={'/musicdetalle/' + props.id}>
+        <Link to={'/musicdetail/' + props.id}>
           <p className="text-dark nombre-album-tarjeta">{props.nombreAlbum}</p>
         </Link>
       </Card.Footer>

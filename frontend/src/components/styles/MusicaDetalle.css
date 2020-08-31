@@ -1,4 +1,4 @@
-#contenedor-uno-detail-music {
+#contenedor-detail-music {
   background: rgb(149, 212, 203);
   background: linear-gradient(
     135deg,
@@ -7,91 +7,32 @@
   );
 }
 
-#contenedor-dos-detail-music {
-  background: #d5fff9;
+#release-details {
+  font-family: 'Montserrat';
+  font-size: 1rem;
 }
 
 #artist-name {
-  font-family: "Montserrat";
+  font-family: 'Montserrat';
   font-size: 2rem;
   color: #008cba;
-  display: inline;
 }
 
 #album-name {
-  margin-top: 1em;
-  font-family: "Montserrat";
+  font-family: 'Montserrat';
   font-size: 1.2rem;
-  display: block;
 }
 
-#release-details {
-  margin-top: 2.5rem;
-  margin-bottom: 1.5rem;
-  font-family: "Montserrat";
+.datos {
+  font-family: 'VarelaRound';
+  font-size: 0.8rem;
+}
+
+.title-music {
+  font-family: 'Montserrat';
   font-size: 1rem;
 }
 
-#catalog {
-  margin-right: 26px;
-  display: inline;
-  font-family: "VarelaRound";
-  font-size: 0.8rem;
-}
-
-#release-date {
-  margin-right: 26px;
-  display: inline;
-  font-family: "VarelaRound";
-  font-size: 0.8rem;
-}
-
-#series {
-  margin-right: 26px;
-  display: inline;
-  font-family: "VarelaRound";
-  font-size: 0.8rem;
-}
-
-#style {
-  margin-right: 26px;
-  display: inline;
-  font-family: "VarelaRound";
-  font-size: 0.8rem;
-}
-
-#audio {
-  margin-right: 26px;
-  display: inline;
-  font-family: "VarelaRound";
-  font-size: 0.8rem;
-}
-
-#price {
-  margin-right: 26px;
-  display: inline;
-  font-family: "VarelaRound";
-  font-size: 0.8rem;
-}
-
-#description-title {
-  margin-top: 1.5rem;
-  margin-bottom: 1.5rem;
-  font-family: "Montserrat";
-  font-size: 1rem;
-}
-
-#description-content {
-  font-family: "VarelaRound";
-  margin-top: "2em";
-}
-
-#tracklist-title {
-  font-family: "Montserrat";
-  font-size: 1rem;
-}
-
-#tracklist-content {
-  font-family: "VarelaRound";
-  margin-top: 2em;
+.contenido {
+  font-family: 'VarelaRound';
 }

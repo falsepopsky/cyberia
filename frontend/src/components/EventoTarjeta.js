@@ -9,7 +9,7 @@ export default (props) => (
     <Card className="bg-white rounded evento-tarjeta">
       <Card.Body>
         <p className="text-dark name-day">{props.nombreDia}</p>
-        <Link to={'/eventsdetalle/' + props.id}>
+        <Link to={'/eventsdetail/' + props.id}>
           <p className="day-month">{props.diaMes}</p>
         </Link>
         <img

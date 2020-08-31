@@ -15,7 +15,7 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 import { useParams } from 'react-router-dom';
 import moment from 'moment';
-import './styles/MusicaDetalle.css';
+import '../components/styles/MusicaDetalle.css';
 
 export default () => {
   let { id } = useParams();
@@ -36,12 +36,12 @@ export default () => {
   return (
     publicacion && (
       <>
-        <Row id="contenedor-uno-detail-music">
+        <Row id="contenedor-detail-music">
           <Col
             sm={6}
             md={6}
             lg={{ span: 4, offset: 1 }}
-            className="mt-4 text-center align-items-stretch justify-content-center"
+            className="mt-5 text-center align-items-stretch justify-content-center"
           >
             <img
               src={publicacion.cover}
@@ -52,16 +52,19 @@ export default () => {
           <Col
             sm={6}
             md={6}
-            lg={6}
+            lg={{ span: 5, offset: 1 }}
             className="mt-5 text-center align-items-stretch justify-content-center"
           >
-            <h3 id="artist-name">{publicacion.nombreArtista}</h3>
-            <h3 id="album-name">{publicacion.nombreAlbum}</h3>
+            <h3 className="d-inline" id="artist-name">
+              {publicacion.nombreArtista}
+            </h3>
+            <h3 className="mt-3 mb-5 d-block" id="album-name">
+              {publicacion.nombreAlbum}
+            </h3>
 
-            <h2 id="release-details">RELEASE DETAILS</h2>
             <Row>
               <Col xs={12}>
-                <p id="catalog">
+                <p className="mx-3 d-inline datos">
                   <FontAwesomeIcon
                     color="black"
                     icon={faHashtag}
@@ -69,7 +72,7 @@ export default () => {
                   />
                   {publicacion.catalog}
                 </p>
-                <p id="release-date">
+                <p className="mx-3 d-inline datos">
                   <FontAwesomeIcon
                     color="black"
                     icon={faCalendarAlt}
@@ -77,7 +80,7 @@ export default () => {
                   />
                   {moment(publicacion.fechaLanzamiento).format('MMM Do YYYY')}
                 </p>
-                <p id="series">
+                <p className="mx-3 d-inline datos">
                   <FontAwesomeIcon
                     color="black"
                     icon={faClone}
@@ -87,7 +90,7 @@ export default () => {
                 </p>
               </Col>
               <Col xs={12}>
-                <p id="style">
+                <p className="p-3 d-inline datos">
                   <FontAwesomeIcon
                     color="black"
                     icon={faMusic}
@@ -95,7 +98,7 @@ export default () => {
                   />
                   {publicacion.genero}
                 </p>
-                <p id="audio">
+                <p className="p-3 d-inline datos">
                   <FontAwesomeIcon
                     color="black"
                     icon={faFileAudio}
@@ -103,7 +106,7 @@ export default () => {
                   />
                   {publicacion.audio}
                 </p>
-                <p id="price">
+                <p className="p-3 d-inline datos">
                   <FontAwesomeIcon
                     color="black"
                     icon={faDollarSign}
@@ -114,26 +117,18 @@ export default () => {
               </Col>
             </Row>
 
-            <Button style={{ margin: '1em' }} variant="info">
+            <Button className="m-4" variant="info">
               <FontAwesomeIcon color="white" icon={faHeart} /> Wishlist
             </Button>
-            <Button style={{ margin: '1em' }} variant="info">
+            <Button className="m-4" variant="info">
               <FontAwesomeIcon color="white" icon={faCartPlus} /> Add to Cart
             </Button>
 
-            <h2 id="description-title">DESCRIPTION</h2>
-            <p id="description-content">{publicacion.descripcion}</p>
-          </Col>
-        </Row>
-        <Row id="contenedor-dos-detail-music">
-          <Col
-            sm={{ span: 6, offset: 3 }}
-            md={{ span: 6, offset: 3 }}
-            lg={{ span: 6, offset: 3 }}
-            className="mt-4 text-center align-items-stretch justify-content-center"
-          >
-            <h2 id="tracklist-title">TRACKLIST</h2>
-            <p id="tracklist-content">{publicacion.tracklist}</p>
+            <h2 className="my-4 title-music">DESCRIPTION</h2>
+            <p className="mb-5 contenido">{publicacion.descripcion}</p>
+
+            <h2 className="my-4 title-music">TRACKLIST</h2>
+            <p className="mb-5 contenido">{publicacion.tracklist}</p>
           </Col>
         </Row>
       </>

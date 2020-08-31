@@ -4,11 +4,10 @@ const auth = require('../helpers/auth');
 
 const {
   publicacionesMusica,
-  publicacionesMusicaTarjeta,
   publicacionFormateadaPorId,
   publicacionLayer,
   ultimasCuatroPublicaciones,
-  publicacionId,
+  obtenerPublicacion,
   agregarPublicacion,
   modificarPublicacion,
   borrarPublicacion,
@@ -16,11 +15,7 @@ const {
 
 // Obtener todas las publicaciones de música
 
-router.get('/api/musica/', publicacionesMusica);
-
-// Formateado para la tarjeta Música
-
-router.get('/api/musica/listamusicaroutes', publicacionesMusicaTarjeta);
+router.get('/api/musica/publicacionesmusica', publicacionesMusica);
 
 // Formateado para la publicación Música
 
@@ -36,7 +31,7 @@ router.get(
   '/api/musica/ultimascuatropublicaciones',
   ultimasCuatroPublicaciones
 );
-router.get('/api/musica/:id', publicacionId);
+router.get('/api/musica/:id', obtenerPublicacion);
 router.post('/api/musica/', auth, agregarPublicacion);
 router.put('/api/musica/:id', auth, modificarPublicacion);
 router.delete('/api/musica/:id', auth, borrarPublicacion);

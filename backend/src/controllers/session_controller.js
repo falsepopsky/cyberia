@@ -4,11 +4,11 @@ const bcrypt = require('bcrypt');
 const saltRounds = 10;
 
 sessionCtrl.logIn = (req, res) => {
-  let sql = `SELECT * FROM usuarios WHERE usr_nombre = ?`;
+  let sqlSelectUser = `SELECT * FROM usuarios WHERE usr_nombre = ?`;
 
-  let value = req.body.user;
+  let username = req.body.user;
 
-  conexion.query(sql, value, async (err, result, fields) => {
+  conexion.query(sqlSelectUser, username, async (err, result, fields) => {
     if (err) {
       res.status(500).json({
         status: 'error',
@@ -23,19 +23,21 @@ sessionCtrl.logIn = (req, res) => {
         );
 
         if (password) {
-          req.session.user = result[0].usr_nombre;
           req.session.userId = result[0].usr_id;
-          res.json({
+          req.session.user = result[0].usr_nombre;
+          req.session.admin = result[0].usr_admin;
+          res.status(200).json({
             status: 'ok',
             message: 'sesión iniciada',
-            loggedUser: {
+            usuarioLogueado: {
               id: req.session.userId,
               nombre: req.session.user,
+              admin: req.session.admin,
             },
           });
         }
       } else {
-        res.json({
+        res.status(404).json({
           status: 'error',
           message: 'Usuario y/o contraseña no validos',
         });
@@ -44,23 +46,23 @@ sessionCtrl.logIn = (req, res) => {
   });
 };
 
-sessionCtrl.signUp = (req, res) => {
-  let sqlInsert = `INSERT INTO usuarios(usr_nombre, usr_email, usr_password) VALUES( ?, ?, ?)`;
+sessionCtrl.signUp = async (req, res) => {
+  let sqlInsertUser = `INSERT INTO usuarios(usr_nombre, usr_email, usr_password) VALUES(?, ?, ?)`;
   let values = [req.body.nombreUsuario, req.body.email];
   const password = req.body.password;
 
   // HAGO HASH DE PASSWORD Y LO AGREGO A VALUES
-  const hash = bcrypt.hashSync(password, saltRounds);
+  const hash = await bcrypt.hashSync(password, saltRounds);
   values.push(`${hash}`);
 
-  conexion.query(sqlInsert, values, function (err, result, fields) {
+  conexion.query(sqlInsertUser, values, function (err, result, fields) {
     if (err) {
-      res.json({
+      res.status(500).json({
         status: 'error',
         message: 'Error al registrarse',
       });
     } else {
-      res.json({
+      res.status(200).json({
         status: 'ok',
         message: 'Usuario Creado',
       });
@@ -71,13 +73,13 @@ sessionCtrl.signUp = (req, res) => {
 sessionCtrl.destroySession = (req, res) => {
   req.session.destroy((err) => {
     if (err) {
-      res.json({
+      res.status(500).json({
         status: 'error',
         message: 'Error al cerrar la sesión',
       });
     } else {
       res.clearCookie('cyberia');
-      res.json({
+      res.status(200).json({
         status: 'ok',
         message: 'Sesión cerrada',
       });

@@ -12,7 +12,7 @@ import {
   faMusic,
   faCartPlus,
 } from '@fortawesome/free-solid-svg-icons';
-import './styles/EventoDetalle.css';
+import '../components/styles/EventoDetalle.css';
 import { useParams } from 'react-router-dom';
 import moment from 'moment';
 
@@ -22,9 +22,9 @@ export default () => {
 
   useEffect(() => {
     async function getEventDetail() {
-      let response = await fetch(
-        'http://localhost:8888/api/eventos/detail/' + id
-      );
+      const API_EVENT_DETAIL_ROUTE =
+        'http://localhost:8888/api/eventos/detail/';
+      let response = await fetch(`${API_EVENT_DETAIL_ROUTE}${id}`);
       let data = await response.json();
       setEvento(data);
     }

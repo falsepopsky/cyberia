@@ -5,35 +5,19 @@ const fs = require('fs');
 const imagesURL = process.env.IMAGES_URL;
 
 publicacionesMusicaCtrl.publicacionesMusica = (req, res) => {
-  let sqlSelect = `SELECT pm_nombre_artista AS artistCategory, pm_nombre_album AS nombreAlbum, pm_catalogo AS catalog, pm_fecha_lanzamiento AS fechaLanzamiento, pm_series AS series, pm_cover AS cover, pm_tracklist AS tracklist, pm_descripcion AS descripcion, pm_precio AS precio, pm_audio AS audio, pm_genero AS genero
-    FROM publicaciones_musica`;
-
-  conexion.query(sqlSelect, function (err, result, fields) {
-    if (err) {
-      res.json({
-        status: 'error',
-        message: 'Error al obtener las publicaciones',
-      });
-    } else {
-      res.json(result);
-    }
-  });
-};
-
-publicacionesMusicaCtrl.publicacionesMusicaTarjeta = (req, res) => {
-  let sql = `SELECT pm_id as id, artistas_nombre as nombreArtista, pm_nombre_album as nombreAlbum, pm_cover as cover 
+  const sqlSelectPublicacionesMusica = `SELECT pm_id as id, artistas_nombre as nombreArtista, pm_nombre_album as nombreAlbum, pm_cover as cover 
    FROM publicaciones_musica
    INNER JOIN 
    artistas ON pm_nombre_artista = artistas_id`;
 
-  conexion.query(sql, function (err, result, fields) {
+  conexion.query(sqlSelectPublicacionesMusica, function (err, result, fields) {
     if (err) {
-      res.json({
+      res.status(404).json({
         status: 'error',
         message: 'Error al obtener las publicaciones',
       });
     } else {
-      res.json(result);
+      res.status(200).json(result);
     }
   });
 };
@@ -52,12 +36,12 @@ publicacionesMusicaCtrl.publicacionFormateadaPorId = (req, res) => {
     WHERE pm_id = ${req.params.id}`;
   conexion.query(sql, function (err, result, fields) {
     if (err) {
-      res.json({
+      res.status(404).json({
         status: 'error',
         message: 'Error al obtener las publicaciones',
       });
     } else {
-      res.json(result[0]);
+      res.status(200).json(result[0]);
     }
   });
 };
@@ -100,18 +84,21 @@ publicacionesMusicaCtrl.ultimasCuatroPublicaciones = (req, res) => {
   });
 };
 
-publicacionesMusicaCtrl.publicacionId = (req, res) => {
+publicacionesMusicaCtrl.obtenerPublicacion = (req, res) => {
   let sql = `SELECT pm_nombre_artista AS artistCategory, pm_nombre_album AS nombreAlbum, pm_catalogo AS catalog, pm_fecha_lanzamiento AS fechaLanzamiento, pm_series AS series, pm_cover AS cover, pm_tracklist AS tracklist, pm_descripcion AS descripcion, pm_precio AS precio, pm_audio AS audio, pm_genero AS genero
     FROM publicaciones_musica
-    WHERE pm_id = ${req.params.id}`;
-  conexion.query(sql, function (err, result, fields) {
+    WHERE pm_id = ?`;
+
+  let values = req.params.id;
+
+  conexion.query(sql, values, function (err, result, fields) {
     if (err) {
-      res.json({
+      res.status(404).json({
         status: 'error',
         message: 'Error al obtener la publicacion',
       });
     } else {
-      res.json(result[0]);
+      res.status(200).json(result[0]);
     }
   });
 };

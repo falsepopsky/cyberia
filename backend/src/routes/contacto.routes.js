@@ -1,8 +1,15 @@
 const express = require('express');
 const router = express.Router();
+const auth = require('../helpers/auth');
 
-const { enviarContactoRoutes } = require('../controllers/contacto_controller');
+const {
+  obtenerMensajesDeContactos,
+  enviarFormularioDeContacto,
+  borrarMensajeDeContacto,
+} = require('../controllers/contacto_controller');
 
-router.post('/api/contacto', enviarContactoRoutes);
+router.get('/api/contacto', auth, obtenerMensajesDeContactos);
+router.post('/api/contacto', enviarFormularioDeContacto);
+router.delete('api/contacto/:id', auth, borrarMensajeDeContacto);
 
 module.exports = router;
