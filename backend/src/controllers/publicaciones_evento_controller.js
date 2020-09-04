@@ -2,40 +2,59 @@ const eventosCtrl = {};
 const conexion = require('../connection');
 const path = require('path');
 const fs = require('fs');
+const IMAGES_URL = process.env.IMAGES_URL;
 
-eventosCtrl.publicacionesEventos = (req, res) => {
-  let sql = `SELECT evento_id AS id, evento_fecha AS nombreDia, evento_fecha AS diaMes, evento_banner as bannerEvento FROM eventos`;
+eventosCtrl.obtenerTodosLosEventos = (req, res) => {
+  const sqlSelectTodosLosEventos = `SELECT evento_id AS id, evento_fecha AS nombreDia, evento_fecha AS diaMes, evento_banner as bannerEvento FROM eventos`;
 
-  conexion.query(sql, function (err, result, fields) {
-    if (err) throw err;
-
-    res.json(result);
+  conexion.query(sqlSelectTodosLosEventos, function (err, result, fields) {
+    if (err) {
+      res.status(404).json({
+        err: 'error',
+        message: 'Error al obtener todos los eventos',
+      });
+    } else {
+      res.status(200).json(result);
+    }
   });
 };
 
-eventosCtrl.publicacionesSemanaCorrienteEventos = (req, res) => {
-  let sql = `SELECT evento_id AS id, evento_fecha AS nombreDia, evento_fecha AS diaMes, evento_banner as bannerEvento FROM eventos WHERE evento_fecha between cast(timestampadd(SQL_TSI_DAY, -(dayofweek(curdate())-2), curdate()) as date) and cast(timestampadd(SQL_TSI_DAY, 7-(dayofweek(curdate())-1), curdate()) as date)`;
+eventosCtrl.obtenerEventosDeSemanaCorriente = (req, res) => {
+  const sqlSelectEventosDeSemanaCorriente = `SELECT evento_id AS id, evento_fecha AS nombreDia, evento_fecha AS diaMes, evento_banner as bannerEvento FROM eventos WHERE evento_fecha between cast(timestampadd(SQL_TSI_DAY, -(dayofweek(curdate())-2), curdate()) as date) and cast(timestampadd(SQL_TSI_DAY, 7-(dayofweek(curdate())-1), curdate()) as date)`;
 
-  conexion.query(sql, function (err, result, fields) {
-    if (err) throw err;
-
-    res.json(result);
+  conexion.query(sqlSelectEventosDeSemanaCorriente, function (
+    err,
+    result,
+    fields
+  ) {
+    if (err) {
+      res.status(404).json({
+        err: 'error',
+        message: 'Error al obtener eventos de la semana',
+      });
+    } else {
+      res.status(200).json(result);
+    }
   });
 };
 
-eventosCtrl.publicacionIdEvento = (req, res) => {
-  let sql = `SELECT evento_id AS id, evento_nombre AS tituloEvento, evento_banner AS bannerEvento, evento_fecha AS fecha, evento_apertura AS horarioApertura, evento_cierre AS horarioCierre, evento_precio_puerta AS precioPuerta, evento_precio_advance AS precioAdvance, evento_genero AS generos, evento_lineup AS lineUp, evento_descripcion AS descripcion
+eventosCtrl.obtenerUnEvento = (req, res) => {
+  const sqlSelectUnEvento = `SELECT evento_id AS id, evento_nombre AS tituloEvento, evento_banner AS bannerEvento, evento_fecha AS fecha, evento_apertura AS horarioApertura, evento_cierre AS horarioCierre, evento_precio_puerta AS precioPuerta, evento_precio_advance AS precioAdvance, evento_genero AS generos, evento_lineup AS lineUp, evento_descripcion AS descripcion
     FROM eventos
     WHERE evento_id = ?`;
-  let values = req.params.id;
+  let parametroDeEvento = req.params.id;
 
-  conexion.query(sql, values, function (err, result, fields) {
+  conexion.query(sqlSelectUnEvento, parametroDeEvento, function (
+    err,
+    result,
+    fields
+  ) {
     if (err) throw err;
-    res.json(result[0]);
+    res.status(200).json(result[0]);
   });
 };
 
-eventosCtrl.agregarPublicacionEvento = (req, res) => {
+eventosCtrl.agregarUnEvento = (req, res) => {
   let imageFileName = '';
 
   if (req.files) {
@@ -51,11 +70,11 @@ eventosCtrl.agregarPublicacionEvento = (req, res) => {
     console.log('No hay archivo');
   }
 
-  let sqlInsert = `INSERT INTO eventos(evento_nombre, evento_banner, evento_fecha, evento_apertura, evento_cierre, evento_precio_puerta, evento_precio_advance, evento_lineup, evento_descripcion, evento_genero) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`;
+  const sqlInsertEvento = `INSERT INTO eventos(evento_nombre, evento_banner, evento_fecha, evento_apertura, evento_cierre, evento_precio_puerta, evento_precio_advance, evento_lineup, evento_descripcion, evento_genero) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`;
 
-  const values = [
+  const valoresDeEvento = [
     req.body.nombre,
-    `http://localhost:8888/images/${imageFileName}`,
+    `${IMAGES_URL}${imageFileName}`,
     req.body.fecha,
     req.body.apertura,
     req.body.cierre,
@@ -65,7 +84,11 @@ eventosCtrl.agregarPublicacionEvento = (req, res) => {
     req.body.descripcion,
     req.body.genero,
   ];
-  conexion.query(sqlInsert, values, function (err, result, fields) {
+  conexion.query(sqlInsertEvento, valoresDeEvento, function (
+    err,
+    result,
+    fields
+  ) {
     if (err) {
       res.json({
         status: 'error',
@@ -80,7 +103,7 @@ eventosCtrl.agregarPublicacionEvento = (req, res) => {
   });
 };
 
-eventosCtrl.modificarPublicacionEvento = (req, res) => {
+eventosCtrl.modificarUnEvento = (req, res) => {
   let imageFileName = '';
 
   let sqlUpdate = `UPDATE eventos 
@@ -94,7 +117,7 @@ eventosCtrl.modificarPublicacionEvento = (req, res) => {
         evento_descripcion = ?, 
         evento_genero = ?`;
 
-  const valuesUpdate = [
+  let valuesUpdate = [
     req.body.nombre,
     req.body.fecha,
     req.body.apertura,
@@ -134,7 +157,7 @@ eventosCtrl.modificarPublicacionEvento = (req, res) => {
     });
 
     sqlUpdate += ', evento_banner = ?';
-    valuesUpdate.push(`http://localhost:8888/images/${imageFileName}`);
+    valuesUpdate.push(`${IMAGES_URL}${imageFileName}`);
   } else {
     console.log('No hay archivo');
   }
@@ -144,12 +167,12 @@ eventosCtrl.modificarPublicacionEvento = (req, res) => {
 
   conexion.query(sqlUpdate, valuesUpdate, function (err, result, fields) {
     if (err) {
-      res.json({
+      res.status(400).json({
         status: 'error',
         message: 'Error al modificar la publicación',
       });
     } else {
-      res.json({
+      res.status(200).json({
         status: 'ok',
         message: 'Publicación modificada correctamente',
       });
@@ -157,11 +180,15 @@ eventosCtrl.modificarPublicacionEvento = (req, res) => {
   });
 };
 
-eventosCtrl.borrarPublicacionEvento = (req, res) => {
-  let sqlDelete = `DELETE FROM eventos WHERE evento_id = ?`;
-  const valueId = req.params.id;
+eventosCtrl.borrarUnEvento = (req, res) => {
+  const sqlDeleteEvento = `DELETE FROM eventos WHERE evento_id = ?`;
+  const valueIdEvento = req.params.id;
 
-  conexion.query(sqlDelete, valueId, function (err, result, fields) {
+  conexion.query(sqlDeleteEvento, valueIdEvento, function (
+    err,
+    result,
+    fields
+  ) {
     if (err) {
       res.status(404).json({
         status: 'error',

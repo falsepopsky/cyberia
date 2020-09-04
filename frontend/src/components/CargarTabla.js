@@ -36,8 +36,7 @@ const ListadoTabla = (props) => {
   };
 
   const cargarListadoProductos = async () => {
-    const API_ROUTE_GET_MUSICA =
-      'http://localhost:8888/api/musica/publicacionesmusica';
+    const API_ROUTE_GET_MUSICA = 'http://localhost:8888/api/musica';
     let response = await fetch(API_ROUTE_GET_MUSICA);
     let data = await response.json();
 

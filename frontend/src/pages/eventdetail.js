@@ -22,8 +22,7 @@ export default () => {
 
   useEffect(() => {
     async function getEventDetail() {
-      const API_EVENT_DETAIL_ROUTE =
-        'http://localhost:8888/api/eventos/detail/';
+      const API_EVENT_DETAIL_ROUTE = 'http://localhost:8888/api/eventos/';
       let response = await fetch(`${API_EVENT_DETAIL_ROUTE}${id}`);
       let data = await response.json();
       setEvento(data);

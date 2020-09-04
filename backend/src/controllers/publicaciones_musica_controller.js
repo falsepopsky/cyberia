@@ -22,7 +22,7 @@ publicacionesMusicaCtrl.publicacionesMusica = (req, res) => {
   });
 };
 
-publicacionesMusicaCtrl.publicacionFormateadaPorId = (req, res) => {
+publicacionesMusicaCtrl.publicacionDetailFrontend = (req, res) => {
   let sql = `SELECT pm_id AS id, artistas_nombre AS nombreArtista, pm_nombre_album AS nombreAlbum, pm_cover as cover, pm_catalogo AS catalog, pm_fecha_lanzamiento AS fechaLanzamiento, series_nombre AS series, gnr_nombre AS genero, fa_nombre AS audio, pm_precio AS precio, pm_descripcion AS descripcion, pm_tracklist AS tracklist
     FROM publicaciones_musica
     INNER JOIN 
@@ -33,8 +33,10 @@ publicacionesMusicaCtrl.publicacionFormateadaPorId = (req, res) => {
     generos_musicales ON gnr_id = pm_genero
     INNER JOIN
     formatos_audio ON fa_id = pm_audio
-    WHERE pm_id = ${req.params.id}`;
-  conexion.query(sql, function (err, result, fields) {
+    WHERE pm_id = ?`;
+  let values = req.params.id;
+
+  conexion.query(sql, values, function (err, result, fields) {
     if (err) {
       res.status(404).json({
         status: 'error',
@@ -47,51 +49,60 @@ publicacionesMusicaCtrl.publicacionFormateadaPorId = (req, res) => {
 };
 
 publicacionesMusicaCtrl.publicacionLayer = (req, res) => {
-  let sql = `SELECT pm_id AS id, pm_cover as cover, artistas_nombre AS nombreArtista, pm_nombre_album AS nombreAlbum, pm_descripcion AS descripcion
+  const sqlSelectLayer = `SELECT pm_id AS id, pm_cover as cover, artistas_nombre AS nombreArtista, pm_nombre_album AS nombreAlbum, pm_descripcion AS descripcion
   FROM publicaciones_musica
   INNER JOIN 
   artistas ON  pm_nombre_artista = artistas_id
   WHERE pm_series = 1
   ORDER BY id DESC LIMIT 1`;
-  conexion.query(sql, function (err, result, fields) {
+
+  conexion.query(sqlSelectLayer, function (err, result, fields) {
     if (err) {
-      res.json({
+      res.status(404).json({
         status: 'error',
         message: 'Error al obtener la última publicación de layer',
       });
     } else {
-      res.json(result[0]);
+      res.status(200).json(result[0]);
     }
   });
 };
 
 publicacionesMusicaCtrl.ultimasCuatroPublicaciones = (req, res) => {
-  let sql = `SELECT pm_id as id, artistas_nombre as nombreArtista, pm_nombre_album as nombreAlbum, pm_cover as cover 
+  const sqlSelectUltimasCuatroPublicaciones = `SELECT pm_id as id, artistas_nombre as nombreArtista, pm_nombre_album as nombreAlbum, pm_cover as cover 
   FROM publicaciones_musica
   INNER JOIN 
   artistas ON pm_nombre_artista = artistas_id
   ORDER BY pm_id DESC LIMIT 4`;
 
-  conexion.query(sql, function (err, result, fields) {
+  conexion.query(sqlSelectUltimasCuatroPublicaciones, function (
+    err,
+    result,
+    fields
+  ) {
     if (err) {
-      res.json({
+      res.status(200).json({
         status: 'error',
         message: 'Error al obtener las últimas 4 publicaciones',
       });
     } else {
-      res.json(result);
+      res.status(200).json(result);
     }
   });
 };
 
 publicacionesMusicaCtrl.obtenerPublicacion = (req, res) => {
-  let sql = `SELECT pm_nombre_artista AS artistCategory, pm_nombre_album AS nombreAlbum, pm_catalogo AS catalog, pm_fecha_lanzamiento AS fechaLanzamiento, pm_series AS series, pm_cover AS cover, pm_tracklist AS tracklist, pm_descripcion AS descripcion, pm_precio AS precio, pm_audio AS audio, pm_genero AS genero
+  const sqlSelectUnaPublicacion = `SELECT pm_nombre_artista AS artistCategory, pm_nombre_album AS nombreAlbum, pm_catalogo AS catalog, pm_fecha_lanzamiento AS fechaLanzamiento, pm_series AS series, pm_cover AS cover, pm_tracklist AS tracklist, pm_descripcion AS descripcion, pm_precio AS precio, pm_audio AS audio, pm_genero AS genero
     FROM publicaciones_musica
     WHERE pm_id = ?`;
 
-  let values = req.params.id;
+  let parametroDePublicacion = req.params.id;
 
-  conexion.query(sql, values, function (err, result, fields) {
+  conexion.query(sqlSelectUnaPublicacion, parametroDePublicacion, function (
+    err,
+    result,
+    fields
+  ) {
     if (err) {
       res.status(404).json({
         status: 'error',
@@ -182,7 +193,7 @@ publicacionesMusicaCtrl.modificarPublicacion = (req, res) => {
   // Si me mandan un archivo
 
   if (req.files) {
-    //Borro el archivo de la imagen anterior
+    // Borro el archivo de la imagen anterior, obteniendo la ruta que guarde en la base de datos.
     conexion.query(
       `SELECT pm_cover FROM publicaciones_musica WHERE pm_id = ${req.params.id}`,
       function (err, result, fields) {
@@ -236,13 +247,13 @@ publicacionesMusicaCtrl.modificarPublicacion = (req, res) => {
 };
 
 publicacionesMusicaCtrl.borrarPublicacion = (req, res) => {
-  let sqlDelete = `DELETE FROM publicaciones_musica WHERE pm_id = ?`;
+  const sqlDeletePublicacion = `DELETE FROM publicaciones_musica WHERE pm_id = ?`;
 
   const values = req.params.id;
 
-  conexion.query(sqlDelete, values, (err, result, fields) => {
+  conexion.query(sqlDeletePublicacion, values, (err, result, fields) => {
     if (err) {
-      res.json({
+      res.status(404).json({
         status: 'error',
         message: 'Error al eliminar la publicación',
       });

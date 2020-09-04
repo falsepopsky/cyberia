@@ -1,12 +1,12 @@
+require('dotenv').config();
+
 const express = require('express');
 const cors = require('cors');
 const bodyParser = require('body-parser');
 const fileUpload = require('express-fileupload');
 const session = require('express-session');
 const FileStore = require('session-file-store')(session);
-require('dotenv').config();
-
-const port = process.env.BASE_PORT || 8000;
+const config = require('../config/config');
 
 // Iniciacion
 
@@ -35,10 +35,10 @@ app.use(
 app.use(
   session({
     store: new FileStore(),
-    secret: 'yR9CeeU3G2',
+    secret: config.secret,
     resave: false,
     saveUninitialized: true,
-    name: 'cyberia',
+    name: config.name,
   })
 );
 
@@ -51,6 +51,9 @@ app.use(require('./routes/publicaciones.musica.routes'));
 app.use(require('./routes/publicaciones.evento.routes'));
 app.use(require('./routes/calendario.eventos.routes'));
 
-app.listen(port, () => {
-  console.log(`Escuchando en puerto: ${port}...`);
+app.listen(config.port, (err) => {
+  if (err) {
+    console.error(err);
+  }
+  console.log(`Escuchando en puerto: ${config.port}...`);
 });

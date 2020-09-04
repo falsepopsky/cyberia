@@ -1,10 +1,10 @@
 const express = require('express');
 const router = express.Router();
-const auth = require('../helpers/auth');
+const auth = require('../middlewares/auth');
 
 const {
   publicacionesMusica,
-  publicacionFormateadaPorId,
+  publicacionDetailFrontend,
   publicacionLayer,
   ultimasCuatroPublicaciones,
   obtenerPublicacion,
@@ -15,24 +15,24 @@ const {
 
 // Obtener todas las publicaciones de música
 
-router.get('/api/musica/publicacionesmusica', publicacionesMusica);
+router.get('/api/musica', publicacionesMusica);
 
-// Formateado para la publicación Música
+// Trae una publicación de música para la página details en frontend.
 
-router.get('/api/musica/publicacionmusica/:id', publicacionFormateadaPorId);
+router.get('/api/musica/publicacionmusica/:id', publicacionDetailFrontend);
 
-// Trae la última publicación de Layer
+// Trae solo una y última publicación de la serie Layer.
 
 router.get('/api/musica/layer', publicacionLayer);
 
-// Trae las últimas 4 publicaciones de música en general
+// Trae las últimas 4 publicaciones de música.
 
 router.get(
   '/api/musica/ultimascuatropublicaciones',
   ultimasCuatroPublicaciones
 );
 router.get('/api/musica/:id', obtenerPublicacion);
-router.post('/api/musica/', auth, agregarPublicacion);
+router.post('/api/musica', auth, agregarPublicacion);
 router.put('/api/musica/:id', auth, modificarPublicacion);
 router.delete('/api/musica/:id', auth, borrarPublicacion);
 

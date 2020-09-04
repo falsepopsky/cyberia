@@ -34,10 +34,10 @@ ctrlContacto.enviarFormularioDeContacto = (req, res) => {
 };
 
 ctrlContacto.borrarMensajeDeContacto = (req, res) => {
-  const sqlDeleteContacto = `DELETE FROM contacto where = ?`;
-  let valuesIdContact = req.params.id;
+  const sqlDeleteContacto = `DELETE FROM contacto WHERE con_id = ?`;
+  let valorIdContacto = req.params.id;
 
-  conexion.query(sqlDeleteContacto, valuesIdContact, function (
+  conexion.query(sqlDeleteContacto, valorIdContacto, function (
     err,
     results,
     fields

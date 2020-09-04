@@ -1,5 +1,5 @@
 const auth = function (req, res, next) {
-  if (req.session.admin == 0) {
+  if (req.session && req.session.admin == 0) {
     next();
   } else {
     res.status(401).send({

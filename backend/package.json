@@ -6,8 +6,12 @@
   "scripts": {
     "dev": "nodemon --watch src src/server.js"
   },
-  "keywords": [],
-  "author": "",
+  "keywords": [
+    "express",
+    "node",
+    "mysql"
+  ],
+  "author": "Rodrigo",
   "license": "ISC",
   "dependencies": {
     "bcrypt": "^5.0.0",
