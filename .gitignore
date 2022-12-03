@@ -1,6 +1,2 @@
-backend/node_modules
+**/node_modules/**
 backend/.env
-backend/docker-compose.yml
-backend/Dockerfile
-frontend/node_modules
-CyberiaReactApp.code-workspace
