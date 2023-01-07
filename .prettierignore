@@ -1,0 +1,8 @@
+.vscode
+.eslintrc.js
+.prettierrc
+docker
+package.json
+pnpm-*.yaml
+**/dist/*
+**/.next/*
