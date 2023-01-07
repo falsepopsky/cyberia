@@ -1,10 +1,19 @@
 module.exports = {
   root: true,
-  // This tells ESLint to load the config from the package `eslint-config-custom`
-  extends: ["custom"],
-  settings: {
-    next: {
-      rootDir: ["apps/*/"],
-    },
+  env: { browser: true, node: true, es2022: true },
+  plugins: ['@typescript-eslint'],
+  extends: [
+    'eslint:recommended',
+    'plugin:@typescript-eslint/eslint-recommended',
+    'plugin:@typescript-eslint/recommended',
+    'plugin:@typescript-eslint/recommended-requiring-type-checking',
+    'turbo',
+    'prettier',
+  ],
+  parserOptions: {
+    tsconfigRootDir: './',
+    ecmaVersion: 'latest',
+    project: ['./tsconfig.json', './apps/*/tsconfig.json', './packages/*/tsconfig.json'],
   },
+  reportUnusedDisableDirectives: true,
 };
