@@ -8,6 +8,7 @@
   "editor.wordWrap": "on",
   "editor.guides.bracketPairs": true,
   "editor.tabSize": 2,
+  "editor.linkedEditing": true,
   "editor.quickSuggestions": {
     "strings": "on"
   },
@@ -17,8 +18,7 @@
   "files.associations": {
     "*.css": "tailwindcss"
   },
-  "eslint.validate": ["javascript", "javascriptreact", "typescript", "typescriptreact"],
-  "eslint.packageManager": "pnpm",
+  "eslint.validate": ["typescript", "typescriptreact"],
   "[prisma]": {
     "editor.defaultFormatter": "Prisma.prisma"
   },
