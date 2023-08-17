@@ -4,6 +4,6 @@
     "esbenp.prettier-vscode",
     "bradlc.vscode-tailwindcss",
     "EditorConfig.EditorConfig",
-    "prisma.prisma",
+    "prisma.prisma"
   ]
 }
