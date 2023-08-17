@@ -1,0 +1,9 @@
+{
+  "extends": ["next/core-web-vitals", "cyberia"],
+  "rules": {
+    "react/jsx-pascal-case": [2, { "allowNamespace": true }],
+    "@typescript-eslint/naming-convention": "off",
+    "@typescript-eslint/explicit-function-return-type": "off",
+    "n/no-missing-import": "off"
+  }
+}
