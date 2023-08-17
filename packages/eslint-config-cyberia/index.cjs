@@ -8,14 +8,6 @@ module.exports = {
     'turbo',
     'prettier',
   ],
-  overrides: [
-    {
-      env: { jest: true },
-      plugins: ['jest'],
-      extends: ['plugin:jest/recommended', 'plugin:jest/style'],
-      files: ['**/*.test.ts'],
-    },
-  ],
   rules: {
     '@typescript-eslint/no-use-before-define': [
       'error',
