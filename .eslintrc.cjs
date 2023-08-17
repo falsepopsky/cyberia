@@ -14,7 +14,6 @@ module.exports = {
     '**/node_modules/*',
     '**/dist/*',
     '**/.next/*',
-    '**/.eslintrc.cjs',
     '**/*.config.js',
     '**/*.config.ts',
   ],
