@@ -7,7 +7,7 @@ module.exports = {
     ecmaVersion: 'latest',
     tsconfigRootDir: __dirname,
     sourceType: 'module',
-    project: ['./tsconfig.json', './apps/*/tsconfig.json', './packages/*/tsconfig.json'],
+    project: ['./tsconfig.json', './apps/*/tsconfig.json'],
   },
   ignorePatterns: [
     'packages/eslint-config-cyberia',
