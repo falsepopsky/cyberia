@@ -17,10 +17,10 @@
     "clean": {
       "cache": false
     },
-    "generate": {
+    "db:generate": {
       "cache": false
     },
-    "push": {
+    "db:push": {
       "cache": false
     }
   }

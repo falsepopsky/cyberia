@@ -11,6 +11,7 @@ module.exports = {
   },
   ignorePatterns: [
     'packages/eslint-config-cyberia',
+    'packages/db',
     '**/node_modules/*',
     '**/dist/*',
     '**/.next/*',

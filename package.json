@@ -16,7 +16,8 @@
     "lint": "turbo run lint",
     "format": "prettier --cache -w .",
     "clean": "turbo run clean",
-    "generate": "turbo run generate",
+    "push": "turbo run db:push",
+    "generate": "turbo run db:generate",
     "preinstall": "npx only-allow pnpm"
   },
   "devDependencies": {
