@@ -95,9 +95,6 @@ importers:
       prisma:
         specifier: ^5.1.1
         version: 5.1.1
-      typescript:
-        specifier: ^5.1.6
-        version: 5.1.6
 
   packages/eslint-config-cyberia:
     dependencies:

@@ -4,12 +4,13 @@
   "version": "1.0.0",
   "type": "module",
   "private": true,
-  "main": "./index.ts",
-  "types": "./index.ts",
-  "exports": "./index.ts",
+  "main": "./index.js",
+  "types": "./index.js",
+  "exports": "./index.js",
   "license": "GPL-3.0-only",
   "scripts": {
     "clean": "rm -rf .turbo node_modules",
+    "db:seed": "node ./seed.js",
     "db:generate": "prisma generate",
     "db:push": "prisma db push --skip-generate",
     "db:studio": "prisma studio"
@@ -18,7 +19,6 @@
     "@prisma/client": "^5.1.1"
   },
   "devDependencies": {
-    "prisma": "^5.1.1",
-    "typescript": "^5.1.6"
+    "prisma": "^5.1.1"
   }
 }
