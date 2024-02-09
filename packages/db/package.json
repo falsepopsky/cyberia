@@ -10,9 +10,9 @@
   "license": "GPL-3.0-only",
   "scripts": {
     "clean": "rm -rf .turbo node_modules",
-    "db:seed": "node ./seed.js",
     "db:generate": "prisma generate",
     "db:push": "prisma db push --skip-generate",
+    "db:seed": "node ./seed.js",
     "db:studio": "prisma studio"
   },
   "dependencies": {
