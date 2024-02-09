@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Run Docker Compose
-docker compose -f "docker-compose.yml" up -d --build
+docker compose -f "docker-compose.yaml" up -d --build
 
 # Check the exit code of the previous command
 if [ $? -eq 0 ]; then

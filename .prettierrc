@@ -10,12 +10,8 @@
   "tabWidth": 2,
   "plugins": ["prettier-plugin-tailwindcss"],
   "overrides": [
-    {
-      "files": "*.md",
-      "options": {
-        "printWidth": 100,
-        "proseWrap": "always"
-      }
-    }
+    { "files": "*.md", "options": { "printWidth": 100, "proseWrap": "always" } },
+    { "files": "*.json", "options": { "trailingComma": "none" } },
+    { "files": "*.{yaml,yml}", "options": { "singleQuote": false, "printWidth": 100, "proseWrap": "never" } }
   ]
 }
