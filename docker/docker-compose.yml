@@ -1,16 +1,10 @@
-version: '3.9'
+version: "3.8"
 name: cyberia
 services:
   postgres:
     container_name: db
-    image: postgres:15.4-alpine
+    image: postgres:16-alpine
     restart: always
     ports:
       - 5432:5432
-    env_file: '../.env'
-  adminer:
-    container_name: db_interface
-    image: adminer:latest
-    restart: always
-    ports:
-      - 8080:8080
+    env_file: "../.env"
