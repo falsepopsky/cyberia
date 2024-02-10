@@ -1,4 +1,4 @@
-import type { Metadata } from 'next';
+import type { Metadata, Viewport } from 'next';
 import { IBM_Plex_Sans } from 'next/font/google';
 import Link from 'next/link';
 import './globals.css';
@@ -10,11 +10,14 @@ const ibm_plex_sans = IBM_Plex_Sans({
   display: 'swap',
 });
 
+export const viewport: Viewport = {
+  colorScheme: 'dark',
+};
+
 export const metadata: Metadata = {
   title: 'cyberia',
   description: 'Legendary nightclub from Ovar.',
   keywords: 'cyberia, nightclub',
-  colorScheme: 'dark',
   icons: {
     icon: '/favicon.svg',
   },
@@ -41,7 +44,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             Cyberia
           </Link>
           <Link
-            href='/'
+            href='/events'
             className='hover:text-teal-400 focus-visible:outline focus-visible:outline-1 focus-visible:outline-blue-600 active:outline active:outline-1 active:outline-teal-600'
           >
             Events
