@@ -1,8 +1,8 @@
 import Link from 'next/link';
-import { getEvents } from './queries';
+import { getScheduleEvents } from './queries';
 
 export default async function Events() {
-  const data = await getEvents();
+  const data = await getScheduleEvents();
 
   const events = data?.map((event) => {
     const formattedDate = event.date.toLocaleDateString('en-GB', {
