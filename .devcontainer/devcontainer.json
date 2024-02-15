@@ -6,7 +6,7 @@
   "features": {
     "ghcr.io/devcontainers/features/node:1": {
       "nodeGypDependencies": true,
-      "version": "20.11.0",
+      "version": "20.11.1",
       "nvmVersion": "latest"
     }
   },
