@@ -17,7 +17,7 @@ export default async function Events() {
       <div key={event.id} className='first:mt-8 last:mb-8'>
         <Link
           className='flex max-w-max flex-row items-center gap-2 bg-indigo-700/30 px-1 text-lg text-indigo-200'
-          href={`/events/${event.id}`}
+          href={`/events/${event.events[0].id}`}
         >
           <p className='select-none'>{formattedDate}</p>
           <svg width='18' height='18' viewBox='0 0 15 15' xmlns='http://www.w3.org/2000/svg'>
@@ -43,10 +43,10 @@ export default async function Events() {
 
   const carousel = data?.map((event) => {
     return (
-      <div key={event.id} className='w-full shrink-0 snap-start snap-normal'>
+      <div key={event.id} className='relative w-full shrink-0 snap-start snap-normal'>
         <Image
           alt={event.events[0].name}
-          src={event.events[0].banner}
+          src={`/${event.events[0].banner}`}
           className='pointer-events-none select-none object-fill'
           quality={100}
           fill
@@ -54,7 +54,10 @@ export default async function Events() {
             (max-width: 1200px) 50vw,
             30vw'
         />
-        <Link className='absolute bottom-0 bg-neutral-950 px-1 text-lg text-neutral-100' href={`/events/${event.id}`}>
+        <Link
+          className='absolute bottom-0 bg-neutral-950 px-1 text-lg text-neutral-100'
+          href={`/events/${event.events[0].id}`}
+        >
           {event.events[0].name}
         </Link>
       </div>
