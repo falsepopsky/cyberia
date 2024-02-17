@@ -1,3 +1,4 @@
+import Image from 'next/image';
 import Link from 'next/link';
 import { getScheduleEvents } from './queries';
 
@@ -40,10 +41,32 @@ export default async function Events() {
     );
   });
 
+  const carousel = data?.map((event) => {
+    return (
+      <div key={event.id} className='w-full shrink-0 snap-start snap-normal'>
+        <Image
+          alt={event.events[0].name}
+          src={event.events[0].banner}
+          className='pointer-events-none select-none object-fill'
+          quality={100}
+          fill
+          sizes='(max-width: 768px) 30vw,
+            (max-width: 1200px) 50vw,
+            30vw'
+        />
+        <Link className='absolute bottom-0 bg-neutral-950 px-1 text-lg text-neutral-100' href={`/events/${event.id}`}>
+          {event.events[0].name}
+        </Link>
+      </div>
+    );
+  });
+
   return (
     <main className='grid h-[calc(100vh-2rem)] grid-cols-1 md:grid-cols-2'>
-      <div>
-        <p>Slow down on me</p>
+      <div className='relative'>
+        <div className='sticky top-0 h-screen'>
+          <div className='relative flex h-full w-full snap-x scroll-pl-0 overflow-x-auto'>{carousel}</div>
+        </div>
       </div>
       <div className='flex flex-col gap-8'>{events}</div>
     </main>
