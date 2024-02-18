@@ -4,13 +4,14 @@
   "globalDependencies": ["**/.env"],
   "pipeline": {
     "build": {
-      "dependsOn": ["^build"],
+      "dependsOn": ["^build", "^db:generate", "^db:pushAndSeed"],
       "outputs": ["dist/**", ".next/**", "!.next/cache/**"]
     },
     "lint": {
       "outputs": []
     },
     "dev": {
+      "dependsOn": ["^db:generate", "^db:pushAndSeed"],
       "cache": false,
       "persistent": true
     },
@@ -18,11 +19,11 @@
       "cache": false
     },
     "db:generate": {
+      "cache": false
+    },
+    "db:pushAndSeed": {
       "cache": false,
       "dependsOn": ["^db:generate"]
-    },
-    "db:push": {
-      "cache": false
     }
   }
 }

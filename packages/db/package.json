@@ -11,8 +11,9 @@
   "scripts": {
     "clean": "rm -rf .turbo node_modules",
     "db:generate": "prisma generate",
-    "db:push": "prisma db push --skip-generate",
+    "db:push": "prisma db push",
     "db:seed": "node ./seed.js",
+    "db:pushAndSeed": "prisma db push && node ./seed.js",
     "db:studio": "prisma studio"
   },
   "dependencies": {

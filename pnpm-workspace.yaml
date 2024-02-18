@@ -1,5 +1,4 @@
 packages:
   - "apps/web"
-  - "apps/api"
   - "packages/db"
   - "packages/eslint-config-cyberia"
