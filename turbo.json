@@ -1,18 +1,29 @@
 {
   "$schema": "https://turbo.build/schema.json",
+  "globalEnv": ["NODE_ENV", "DATABASE_URL"],
+  "globalDependencies": ["**/.env"],
   "pipeline": {
     "build": {
-      "dependsOn": ["^build"],
-      "outputs": ["dist/**", ".next/**"]
+      "dependsOn": ["^build", "^db:generate", "^db:pushAndSeed"],
+      "outputs": ["dist/**", ".next/**", "!.next/cache/**"]
     },
     "lint": {
       "outputs": []
     },
     "dev": {
-      "cache": false
+      "dependsOn": ["^db:generate", "^db:pushAndSeed"],
+      "cache": false,
+      "persistent": true
     },
     "clean": {
       "cache": false
+    },
+    "db:generate": {
+      "cache": false
+    },
+    "db:pushAndSeed": {
+      "cache": false,
+      "dependsOn": ["^db:generate"]
     }
   }
 }

@@ -1,0 +1,11 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+  .bg-main {
+    background:
+      no-repeat right 15%/100px 100px linear-gradient(to right, #1465df, #7500e3),
+      no-repeat 10% 78%/50px 50px linear-gradient(to right, #ff4f3b 40%, #7275ff 50%);
+  }
+}

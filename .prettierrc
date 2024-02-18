@@ -4,8 +4,14 @@
   "htmlWhitespaceSensitivity": "css",
   "proseWrap": "never",
   "printWidth": 120,
+  "trailingComma": "es5",
   "singleQuote": true,
   "jsxSingleQuote": true,
+  "tabWidth": 2,
   "plugins": ["prettier-plugin-tailwindcss"],
-  "pluginSearchDirs": false
+  "overrides": [
+    { "files": "*.md", "options": { "printWidth": 100, "proseWrap": "always" } },
+    { "files": "*.json", "options": { "trailingComma": "none" } },
+    { "files": "*.{yaml,yml}", "options": { "singleQuote": false, "printWidth": 100, "proseWrap": "never" } }
+  ]
 }

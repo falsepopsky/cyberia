@@ -1,0 +1,22 @@
+{
+  "name": "eslint-config-cyberia",
+  "description": "ESLint configuration",
+  "private": true,
+  "type": "module",
+  "author": "falsepopsky",
+  "license": "GPL-3.0-only",
+  "version": "1.0.0",
+  "main": "./index.cjs",
+  "exports": "./index.cjs",
+  "dependencies": {
+    "@typescript-eslint/eslint-plugin": "^7.0.1",
+    "@typescript-eslint/parser": "^7.0.1",
+    "eslint-config-prettier": "^9.1.0",
+    "eslint-config-turbo": "^1.12.4",
+    "eslint-plugin-n": "^16.6.2",
+    "eslint-plugin-promise": "^6.1.1"
+  },
+  "devDependencies": {
+    "eslint": "^8.56.0"
+  }
+}
